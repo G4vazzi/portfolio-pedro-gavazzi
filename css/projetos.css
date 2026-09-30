@@ -68,12 +68,7 @@
     width: 100%;
     height: 420px;
     border-radius: var(--radius);
-    background: linear-gradient(
-        135deg,
-        #1d4ed8,
-        #2563eb,
-        #60a5fa
-    );
+    background: none;
 
     display: flex;
     align-items: center;
@@ -93,7 +88,7 @@
 /* Quando colocarmos uma imagem real */
 .project-image img {
     width: 100%;
-    height: 100%;
+    height: 420px;
     object-fit: cover;
 }
 
@@ -204,27 +199,282 @@
 }
 
 /* =========================================
-   GALERIA
+   GALERIA E CARROSSEL DE IMAGENS
 ========================================= */
 
-.project-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+.gallery-description {
+    color: var(--text-light);
+    margin-bottom: 25px;
 }
 
-.project-gallery-item {
-    height: 250px;
-    border-radius: var(--radius);
+.project-carousel {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.carousel-wrapper {
+    position: relative;
+
+    width: 100%;
+    height: 520px;
+
     overflow: hidden;
-    background: var(--background);
+
+    border-radius: var(--radius);
+
+    background: #f8fafc;
+
     border: 1px solid var(--border);
+
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.1);
 }
 
-.project-gallery-item img {
+
+/* =========================================
+   SLIDES
+========================================= */
+
+.carousel-slide {
+    position: absolute;
+
     width: 100%;
     height: 100%;
-    object-fit: cover;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    cursor: zoom-in;
+
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide img:hover {
+    transform: scale(1.015);
+}
+
+
+/* =========================================
+   SETAS
+========================================= */
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 10;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(15, 23, 42, 0.75);
+
+    color: white;
+
+    font-size: 2rem;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.carousel-button:hover {
+    background: var(--primary);
+}
+
+.carousel-prev {
+    left: 18px;
+}
+
+.carousel-next {
+    right: 18px;
+}
+
+
+/* =========================================
+   INDICADORES
+========================================= */
+
+.carousel-indicators {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-top: 18px;
+}
+
+.carousel-indicator {
+    width: 10px;
+    height: 10px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #cbd5e1;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.carousel-indicator:hover {
+    background: #94a3b8;
+}
+
+.carousel-indicator.active {
+    width: 28px;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+}
+
+
+/* =========================================
+   MODAL DA IMAGEM
+========================================= */
+
+.image-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: rgba(0, 0, 0, 0.9);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.image-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.image-modal img {
+    max-width: 95%;
+    max-height: 90vh;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================
+   BOTÃO FECHAR
+========================================= */
+
+.modal-close {
+    position: absolute;
+
+    top: 20px;
+    right: 30px;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 3rem;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    transform: scale(1.15);
+}
+
+
+/* Impede a página de rolar quando modal estiver aberto */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .carousel-wrapper {
+        height: 350px;
+    }
+
+    .carousel-button {
+        width: 40px;
+        height: 40px;
+
+        font-size: 1.6rem;
+    }
+
+    .carousel-prev {
+        left: 10px;
+    }
+
+    .carousel-next {
+        right: 10px;
+    }
+
+    .image-modal {
+        padding: 15px;
+    }
+
+    .image-modal img {
+        max-width: 100%;
+    }
+
 }
 
 /* =========================================
@@ -284,3 +534,4 @@
         text-align: center;
     }
 }
+
