@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#07111f">
+
+    <title>Pedro Gavazzi | PG Reality</title>
+
+    <link rel="stylesheet"
+          href="css/portfolio-v2.css">
+
+    <link rel="icon" href="dara:,">
+
+
+    <script src="js/portfolio-v2.js" defer></script>
+</head>
+
+<body>
+
+    <!-- FILTRO DE CONTORNOS DIGITAIS -->
+    <svg class="reality-filters"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true">
+
+        <defs>
+            <filter id="pg-wireframe"
+                    x="-5%" y="-5%"
+                    width="110%" height="110%"
+                    color-interpolation-filters="sRGB">
+
+                <!-- Remove as cores da imagem -->
+                <feColorMatrix
+                    type="saturate"
+                    values="0"
+                    result="mono"/>
+
+                <!-- Detecta os contornos da fotografia -->
+                <feConvolveMatrix
+                    in="mono"
+                    order="3"
+                    kernelMatrix="
+                        -1 -1 -1
+                        -1  8 -1
+                        -1 -1 -1"
+                    divisor="1"
+                    edgeMode="duplicate"
+                    preserveAlpha="true"
+                    result="edges"/>
+
+                <!-- Transforma os contornos em azul neon -->
+                <feColorMatrix
+                    in="edges"
+                    type="matrix"
+                    values="
+                        0 0 0 0 0.20
+                        0 0 0 0 0.72
+                        0 0 0 0 1
+                        0.33 0.33 0.33 0 0"
+                    result="blueEdges"/>
+
+                <!-- Brilho dos contornos -->
+                <feGaussianBlur
+                    in="blueEdges"
+                    stdDeviation="2"
+                    result="glow"/>
+
+                <feMerge>
+                    <feMergeNode in="glow"/>
+                    <feMergeNode in="blueEdges"/>
+                </feMerge>
+
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- CENÁRIO DE FUNDO -->
+    <div class="scene" aria-hidden="true">
+        <div class="scene__grid"></div>
+    </div>
+
+    <!-- INTRODUÇÃO CINEMATOGRÁFICA -->
+    <div class="intro"
+         id="intro"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Introdução do portfólio"
+         hidden>
+
+        <!-- PAISAGEM REALISTA -->
+        <div class="intro__visual"></div>
+
+        <!-- CAMADA DIGITAL ESCONDIDA -->
+        <div class="intro__wireframe" aria-hidden="true">
+
+            <div class="intro__wireframe-image"></div>
+
+            <div class="intro__wireframe-grid"></div>
+
+            <div class="intro__wireframe-scan"></div>
+
+        </div>
+
+        <!-- FALHAS HORIZONTAIS DA IMAGEM -->
+        <div class="intro__tear" aria-hidden="true"></div>
+
+        <!-- FLASH AZUL -->
+        <div class="intro__flash" aria-hidden="true"></div>
+
+        <!-- INTERFERÊNCIA DIGITAL ORIGINAL -->
+        <div class="intro__interference"></div>
+
+        <div class="intro__content">
+            <span class="intro__eyebrow">
+                PEDRO GAVAZZI
+            </span>
+
+            <h2>Há algo além da superfície.</h2>
+
+            <p class="intro__system">
+                SIGNAL LOST // RECONSTRUCTING REALITY
+            </p>
+
+            <button class="intro__action"
+                    id="breakReality"
+                    type="button"
+                    disabled
+                >
+                    <span class="intro__action-icon">◈</span>
+
+                    QUEBRAR A REALIDADE
+
+                    <span class="intro__action-arrow">→</span>
+            </button>
+
+            <p class="intro__hint">
+                PRESSIONE PARA REVELAR O SISTEMA
+            </p>
+
+        </div>
+
+        <button class="intro__skip"
+                id="skipIntro"
+                type="button">
+            Pular abertura →
+        </button>
+    </div>
+
+    <!-- INTERFACE PRINCIPAL -->
+    <div class="app" id="app">
+
+        <header class="topbar">
+
+            <a class="brand" href="portfolio-v2.html">
+                <span class="brand__icon">PG</span>
+                <span>REALITY<span class="brand__dot">.</span></span>
+            </a>
+
+            <div class="topbar__status">
+                <span class="status-dot"></span>
+                SISTEMA ONLINE
+            </div>
+
+        </header>
+
+        <main class="layout">
+
+            <!-- MENU LATERAL -->
+            <aside class="sidebar">
+
+                <div class="sidebar__heading">
+
+                    <span class="eyebrow">
+                        PLAYER 01 // DEVELOPER
+                    </span>
+
+                    <h1>
+                        PEDRO<br>
+                        <span>GAVAZZI</span>
+                    </h1>
+
+                    <p>
+                        Uma jornada através do código,
+                        da criatividade e da tecnologia.
+                    </p>
+
+                </div>
+
+                <nav class="game-menu"
+                     id="gameMenu"
+                     aria-label="Navegação principal">
+
+                    <button class="game-menu__item is-active"
+                            data-screen="inicio"
+                            aria-pressed="true">
+                        <span class="game-menu__number">01</span>
+                        <span>INÍCIO</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                    <button class="game-menu__item"
+                            data-screen="projetos"
+                            aria-pressed="false">
+                        <span class="game-menu__number">02</span>
+                        <span>PROJETOS</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                    <button class="game-menu__item"
+                            data-screen="habilidades"
+                            aria-pressed="false">
+                        <span class="game-menu__number">03</span>
+                        <span>HABILIDADES</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                    <button class="game-menu__item"
+                            data-screen="sobre"
+                            aria-pressed="false">
+                        <span class="game-menu__number">04</span>
+                        <span>MINHA HISTÓRIA</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                    <button class="game-menu__item"
+                            data-screen="contato"
+                            aria-pressed="false">
+                        <span class="game-menu__number">05</span>
+                        <span>CONTATO</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                </nav>
+
+                <div class="sidebar__bottom">
+                    <button id="replayIntro" class="replay" type="button">
+                        ↻ REINICIAR SIMULAÇÃO
+                    </button>
+
+                    <p>↑ ↓ NAVEGAR &nbsp; · &nbsp; ENTER SELECIONAR</p>
+                </div>
+
+            </aside>
+
+            <!-- CONTEÚDO DINÂMICO -->
+            <section class="display"
+                     aria-label="Conteúdo do portfólio"
+                     aria-live="polite">
+
+                <div class="display__top">
+                    <span>PG // PERSONAL DATABASE</span>
+                    <span id="screenCounter">01 / 05</span>
+                </div>
+
+                <!-- INÍCIO -->
+                <section class="panel" data-panel="inicio">
+
+                    <span class="panel__eyebrow">
+                        INITIAL ACCESS GRANTED
+                    </span>
+
+                    <h2 class="panel__title">
+                        A REALIDADE<br>
+                        <span>É UMA CAMADA.</span>
+                    </h2>
+
+                    <p class="panel__description">
+                        Sou Pedro Gavazzi, desenvolvedor
+                        apaixonado por tecnologia, programação
+                        e novos desafios.
+                    </p>
+
+                    <p class="panel__description">
+                        Explore meus projetos, conheça minha
+                        trajetória e descubra o que estou
+                        construindo.
+                    </p>
+
+                    <button class="action-button"
+                            type="button"
+                            data-go="projetos">
+                        EXPLORAR PROJETOS
+                        <span>↗</span>
+                    </button>
+
+                </section>
+
+                <!-- PROJETOS -->
+                <section class="panel"
+                         data-panel="projetos"
+                         hidden>
+
+                    <span class="panel__eyebrow">
+                        MISSION DATABASE
+                    </span>
+
+                    <h2 class="panel__title">
+                        MEUS <span>PROJETOS.</span>
+                    </h2>
+
+                    <p class="panel__description">
+                        Aplicações, sistemas e ferramentas
+                        desenvolvidos durante minha jornada.
+                    </p>
+
+                    <div class="mission-list">
+
+                        <a class="mission"
+                           href="projects/spacocontabil.html">
+
+                            <span class="mission__number">01</span>
+
+                            <span class="mission__info">
+                                <strong>SpacoContabil</strong>
+                                <small>Python · Flask · JavaScript</small>
+                            </span>
+
+                            <span class="mission__arrow">↗</span>
+                        </a>
+
+                        <a class="mission"
+                           href="projects/lanchoneteweb.html">
+
+                            <span class="mission__number">02</span>
+
+                            <span class="mission__info">
+                                <strong>LanchoneteWeb</strong>
+                                <small>Flask · SQLite · CSS</small>
+                            </span>
+
+                            <span class="mission__arrow">↗</span>
+                        </a>
+
+                        <a class="mission"
+                           href="projects/dashboard-financeiro.html">
+
+                            <span class="mission__number">03</span>
+
+                            <span class="mission__info">
+                                <strong>Dashboard Financeiro</strong>
+                                <small>Excel · Power Query · Power Pivot</small>
+                            </span>
+
+                            <span class="mission__arrow">↗</span>
+                        </a>
+
+                    </div>
+
+                </section>
+
+                <!-- HABILIDADES -->
+                <section class="panel"
+                         data-panel="habilidades"
+                         hidden>
+
+                    <span class="panel__eyebrow">
+                        SKILL DATABASE
+                    </span>
+
+                    <h2 class="panel__title">
+                        MINHAS <span>HABILIDADES.</span>
+                    </h2>
+
+                    <p class="panel__description">
+                        Tecnologias e ferramentas que utilizo
+                        para transformar ideias em soluções.
+                    </p>
+
+                    <div class="skill-group">
+                        <h3>DESENVOLVIMENTO</h3>
+                        <div class="skill-tags">
+                            <span>Python</span>
+                            <span>JavaScript</span>
+                            <span>HTML</span>
+                            <span>CSS</span>
+                            <span>Flask</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>DADOS E AUTOMAÇÃO</h3>
+                        <div class="skill-tags">
+                            <span>SQL</span>
+                            <span>SQLite</span>
+                            <span>Excel</span>
+                            <span>Power Query</span>
+                            <span>Power Pivot</span>
+                            <span>VBA</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>FERRAMENTAS</h3>
+                        <div class="skill-tags">
+                            <span>Git</span>
+                            <span>GitHub</span>
+                            <span>VS Code</span>
+                        </div>
+                    </div>
+
+                </section>
+
+                <!-- MINHA HISTÓRIA -->
+                <section class="panel"
+                         data-panel="sobre"
+                         hidden>
+
+                    <span class="panel__eyebrow">
+                        CHARACTER BACKSTORY
+                    </span>
+
+                    <h2 class="panel__title">
+                        MINHA <span>JORNADA.</span>
+                    </h2>
+
+                    <div class="timeline">
+
+                        <div class="timeline__item">
+                            <span>CAPÍTULO 01</span>
+                            <h3>O início</h3>
+                            <p>
+                                Minha trajetória começou na
+                                Engenharia Civil, área em que
+                                estudei por três anos.
+                            </p>
+                        </div>
+
+                        <div class="timeline__item">
+                            <span>CAPÍTULO 02</span>
+                            <h3>Uma nova direção</h3>
+                            <p>
+                                Decidi mudar de caminho para
+                                seguir meu interesse pela
+                                computação e pelo desenvolvimento.
+                            </p>
+                        </div>
+
+                        <div class="timeline__item">
+                            <span>CAPÍTULO 03</span>
+                            <h3>Evolução constante</h3>
+                            <p>
+                                Atualmente desenvolvo projetos
+                                e aprofundo meus conhecimentos
+                                em programação e tecnologia.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- CONTATO -->
+                <section class="panel"
+                         data-panel="contato"
+                         hidden>
+
+                    <span class="panel__eyebrow">
+                        COMMUNICATION CHANNEL
+                    </span>
+
+                    <h2 class="panel__title">
+                        VAMOS <span>CONVERSAR.</span>
+                    </h2>
+
+                    <p class="panel__description">
+                        Estou construindo minha carreira
+                        em tecnologia e tenho interesse
+                        em oportunidades, colaboração
+                        e novos desafios.
+                    </p>
+
+                    <a class="action-button"
+                       href="https://github.com/G4vazzi"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        ACESSAR GITHUB
+                        <span>↗</span>
+                    </a>
+
+                </section>
+
+                <div class="display__bottom">
+                    <span>ENVIRONMENT STABLE</span>
+                    <span>PG_OS v1.0</span>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="footer">
+            <span>© 2026 PEDRO GAVAZZI</span>
+            <span>BEYOND THE REALITY // PORTFOLIO</span>
+        </footer>
+
+    </div>
+
+</body>
+</html>
