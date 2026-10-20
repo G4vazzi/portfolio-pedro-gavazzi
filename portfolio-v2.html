@@ -288,117 +288,433 @@
 
                 </section>
 
-                <!-- PROJETOS -->
-                <section class="panel"
-                         data-panel="projetos"
-                         hidden>
+                <!-- ====================================
+                    PROJETOS - SELEÇÃO DE MISSÕES
+                ==================================== -->
+
+                <section class="panel panel--projects"
+                        data-panel="projetos"
+                        hidden>
 
                     <span class="panel__eyebrow">
-                        MISSION DATABASE
+                        MISSION DATABASE // 03 ENTRIES
                     </span>
 
                     <h2 class="panel__title">
-                        MEUS <span>PROJETOS.</span>
+                        SELECIONE UMA
+                        <span>MISSÃO.</span>
                     </h2>
 
                     <p class="panel__description">
-                        Aplicações, sistemas e ferramentas
-                        desenvolvidos durante minha jornada.
+                        Explore os sistemas e soluções que
+                        desenvolvi ao longo da minha jornada.
                     </p>
 
-                    <div class="mission-list">
+                    <div class="project-hub">
 
-                        <a class="mission"
-                           href="projects/spacocontabil.html">
+                        <!-- LISTA DE PROJETOS -->
+                        <div class="project-hub__choices"
+                            id="projectChoices"
+                            role="group"
+                            aria-label="Selecionar projeto">
 
-                            <span class="mission__number">01</span>
+                            <!-- PROJETO 01 -->
+                            <button
+                                class="project-choice is-selected"
+                                type="button"
+                                data-project="spaco"
+                                aria-pressed="true">
 
-                            <span class="mission__info">
-                                <strong>SpacoContabil</strong>
-                                <small>Python · Flask · JavaScript</small>
-                            </span>
+                                <span class="project-choice__number">
+                                    01
+                                </span>
 
-                            <span class="mission__arrow">↗</span>
-                        </a>
+                                <span class="project-choice__info">
+                                    <strong>SpacoContabil</strong>
+                                    <small>Python · Flask</small>
+                                </span>
 
-                        <a class="mission"
-                           href="projects/lanchoneteweb.html">
+                                <span class="project-choice__arrow">
+                                    ›
+                                </span>
 
-                            <span class="mission__number">02</span>
+                            </button>
 
-                            <span class="mission__info">
-                                <strong>LanchoneteWeb</strong>
-                                <small>Flask · SQLite · CSS</small>
-                            </span>
+                            <!-- PROJETO 02 -->
+                            <button
+                                class="project-choice"
+                                type="button"
+                                data-project="lanchonete"
+                                aria-pressed="false">
 
-                            <span class="mission__arrow">↗</span>
-                        </a>
+                                <span class="project-choice__number">
+                                    02
+                                </span>
 
-                        <a class="mission"
-                           href="projects/dashboard-financeiro.html">
+                                <span class="project-choice__info">
+                                    <strong>LanchoneteWeb</strong>
+                                    <small>Flask · SQLite</small>
+                                </span>
 
-                            <span class="mission__number">03</span>
+                                <span class="project-choice__arrow">
+                                    ›
+                                </span>
 
-                            <span class="mission__info">
-                                <strong>Dashboard Financeiro</strong>
-                                <small>Excel · Power Query · Power Pivot</small>
-                            </span>
+                            </button>
 
-                            <span class="mission__arrow">↗</span>
-                        </a>
+                            <!-- PROJETO 03 -->
+                            <button
+                                class="project-choice"
+                                type="button"
+                                data-project="dashboard"
+                                aria-pressed="false">
+
+                                <span class="project-choice__number">
+                                    03
+                                </span>
+
+                                <span class="project-choice__info">
+                                    <strong>Dashboard Financeiro</strong>
+                                    <small>Excel · Power Query</small>
+                                </span>
+
+                                <span class="project-choice__arrow">
+                                    ›
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                        <!-- PRÉVIA DO PROJETO -->
+                        <article class="project-detail"
+                                id="projectDetail">
+
+                            <!-- IMAGEM / MOCKUP -->
+                            <div class="project-art"
+                                id="projectArt"
+                                data-project="spaco">
+
+                                <span class="project-art__label">
+                                    PROJECT VISUALIZATION // 01
+                                </span>
+
+                                <!-- IMAGEM REAL (SE DISPONÍVEL) -->
+                                <img
+                                    class="project-art__image"
+                                    id="projectImage"
+                                    alt=""
+                                    hidden>
+
+                                <!-- MOCKUP ALTERNATIVO -->
+                                <div class="project-art__mockup"
+                                    id="projectMockup"
+                                    aria-hidden="true">
+
+                                    <div class="project-art__window-bar">
+                                        <div class="project-art__dots">
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                        </div>
+
+                                        <span id="projectMockupDomain">
+                                            spacocontabil.com.br
+                                        </span>
+                                    </div>
+
+                                    <div class="project-art__window-body">
+
+                                        <span class="project-art__kicker">
+                                            DIGITAL EXPERIENCE
+                                        </span>
+
+                                        <strong id="projectMockupTitle">
+                                            SpacoContabil
+                                        </strong>
+
+                                        <p id="projectMockupCaption">
+                                            Soluções para seu negócio
+                                        </p>
+
+                                        <div class="project-art__lines">
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                        <div class="project-art__tiles">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- INFORMAÇÕES DINÂMICAS -->
+                            <div class="project-detail__content"
+                                aria-live="polite">
+
+                                <div class="project-detail__meta">
+
+                                    <span id="projectIndex">
+                                        MISSION 01 / 03
+                                    </span>
+
+                                    <span class="project-detail__status">
+                                        ● CONCLUÍDO
+                                    </span>
+
+                                </div>
+
+                                <h3 id="projectTitle">
+                                    SpacoContabil
+                                </h3>
+
+                                <p id="projectDescription">
+                                    Site institucional com ferramentas
+                                    digitais, calculadoras e soluções
+                                    para serviços contábeis.
+                                </p>
+
+                                <div class="project-detail__tags"
+                                    id="projectStack">
+
+                                    <span>Python</span>
+                                    <span>Flask</span>
+                                    <span>JavaScript</span>
+
+                                </div>
+
+                                <a class="project-detail__link"
+                                id="projectLink"
+                                href="projects/spacocontabil.html">
+
+                                    VER PROJETO COMPLETO
+
+                                    <span aria-hidden="true">↗</span>
+
+                                </a>
+
+                            </div>
+
+                        </article>
 
                     </div>
 
                 </section>
 
-                <!-- HABILIDADES -->
-                <section class="panel"
-                         data-panel="habilidades"
-                         hidden>
+                <!-- ====================================
+                    HABILIDADES - SKILL TREE
+                ==================================== -->
+
+                <section class="panel panel--skills"
+                        data-panel="habilidades"
+                        hidden>
 
                     <span class="panel__eyebrow">
-                        SKILL DATABASE
+                        CHARACTER PROGRESSION // SKILL DATABASE
                     </span>
 
                     <h2 class="panel__title">
-                        MINHAS <span>HABILIDADES.</span>
+                        ÁRVORE DE
+                        <span>HABILIDADES.</span>
                     </h2>
 
                     <p class="panel__description">
-                        Tecnologias e ferramentas que utilizo
-                        para transformar ideias em soluções.
+                        Explore as tecnologias que utilizo
+                        nos meus projetos e descubra como
+                        aplico cada uma delas.
                     </p>
 
-                    <div class="skill-group">
-                        <h3>DESENVOLVIMENTO</h3>
-                        <div class="skill-tags">
-                            <span>Python</span>
-                            <span>JavaScript</span>
-                            <span>HTML</span>
-                            <span>CSS</span>
-                            <span>Flask</span>
-                        </div>
-                    </div>
+                    <div class="skill-tree" id="skillTree">
 
-                    <div class="skill-group">
-                        <h3>DADOS E AUTOMAÇÃO</h3>
-                        <div class="skill-tags">
-                            <span>SQL</span>
-                            <span>SQLite</span>
-                            <span>Excel</span>
-                            <span>Power Query</span>
-                            <span>Power Pivot</span>
-                            <span>VBA</span>
-                        </div>
-                    </div>
+                        <!-- CAMINHOS DE HABILIDADES -->
+                        <div class="skill-tree__paths">
 
-                    <div class="skill-group">
-                        <h3>FERRAMENTAS</h3>
-                        <div class="skill-tags">
-                            <span>Git</span>
-                            <span>GitHub</span>
-                            <span>VS Code</span>
+                            <!-- DESENVOLVIMENTO WEB -->
+                            <section class="skill-path"
+                                    aria-label="Desenvolvimento Web">
+
+                                <div class="skill-path__title">
+                                    <span>01 /</span>
+                                    DESENVOLVIMENTO WEB
+                                </div>
+
+                                <div class="skill-path__nodes">
+
+                                    <button class="skill-node is-selected"
+                                            data-skill="python"
+                                            type="button"
+                                            aria-pressed="true">
+                                        <span class="skill-node__icon">◈</span>
+                                        Python
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="flask"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        Flask
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="javascript"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        JavaScript
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="htmlcss"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        HTML & CSS
+                                    </button>
+
+                                </div>
+                            </section>
+
+                            <!-- DADOS -->
+                            <section class="skill-path"
+                                    aria-label="Dados">
+
+                                <div class="skill-path__title">
+                                    <span>02 /</span>
+                                    DADOS
+                                </div>
+
+                                <div class="skill-path__nodes">
+
+                                    <button class="skill-node"
+                                            data-skill="sql"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        SQL / SQLite
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="excel"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        Excel
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="powerquery"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        Power Query
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="powerpivot"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        Power Pivot
+                                    </button>
+
+                                </div>
+                            </section>
+
+                            <!-- FERRAMENTAS E AUTOMAÇÃO -->
+                            <section class="skill-path"
+                                    aria-label="Ferramentas e Automação">
+
+                                <div class="skill-path__title">
+                                    <span>03 /</span>
+                                    FERRAMENTAS
+                                </div>
+
+                                <div class="skill-path__nodes">
+
+                                    <button class="skill-node"
+                                            data-skill="vba"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        VBA
+                                    </button>
+
+                                    <button class="skill-node"
+                                            data-skill="git"
+                                            type="button"
+                                            aria-pressed="false">
+                                        <span class="skill-node__icon">◈</span>
+                                        Git & GitHub
+                                    </button>
+
+                                </div>
+                            </section>
+
                         </div>
+
+                        <!-- PAINEL DE INFORMAÇÕES -->
+                        <article class="skill-tree__details"
+                                aria-live="polite"
+                                aria-atomic="true">
+
+                            <div class="skill-tree__detail-top">
+                                <span id="skillCategory">
+                                    DESENVOLVIMENTO WEB
+                                </span>
+
+                                <span>SKILL DATA // ACTIVE</span>
+                            </div>
+
+                            <h3 id="skillName">Python</h3>
+
+                            <p id="skillDescription">
+                                Linguagem utilizada para desenvolver
+                                aplicações e regras de negócio.
+                            </p>
+
+                            <div class="skill-tree__usage">
+
+                                <h4>APLICAÇÃO PRÁTICA</h4>
+
+                                <p id="skillUsage">
+                                    Desenvolvimento de aplicações web
+                                    e processamento de dados.
+                                </p>
+
+                            </div>
+
+                            <div class="skill-tree__projects">
+
+                                <h4>PROJETOS RELACIONADOS</h4>
+
+                                <div id="skillProjects">
+                                    <span>SpacoContabil</span>
+                                    <span>LanchoneteWeb</span>
+                                </div>
+
+                            </div>
+
+                            <a class="skill-tree__link"
+                            id="skillLink"
+                            href="projects/spacocontabil.html">
+
+                                <span id="skillLinkLabel">
+                                    VER PROJETO RELACIONADO
+                                </span>
+
+                                <span aria-hidden="true">↗</span>
+
+                            </a>
+
+                        </article>
+
                     </div>
 
                 </section>

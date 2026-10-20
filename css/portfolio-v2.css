@@ -1490,3 +1490,1048 @@ body.intro-running {
         transform: translateY(0);
     }
 }
+
+/* ========================================
+   PG REALITY - CÂMERA CINEMATOGRÁFICA
+======================================== */
+
+/* CONTROLE PRINCIPAL DA CÂMERA */
+
+.scene::before {
+
+    /* Desativa o movimento anterior */
+    animation: none;
+
+    /* Enquadramento inicial */
+    transform: translate3d(0, 0, 0) scale(1.08);
+
+    filter:
+        brightness(0.98)
+        saturate(1);
+
+    /* Transição cinematográfica */
+    transition:
+        transform 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1.8s ease;
+
+}
+
+/* ========================================
+   01 - INÍCIO
+======================================== */
+
+body[data-screen="inicio"] .scene::before {
+
+    transform:
+        translate3d(0, 0, 0)
+        scale(1.08);
+
+    filter:
+        brightness(0.98)
+        saturate(1);
+
+}
+
+/* ========================================
+   02 - PROJETOS
+======================================== */
+
+body[data-screen="projetos"] .scene::before {
+
+    /* Câmera aproxima e vai para esquerda */
+    transform:
+        translate3d(-2.4%, 0.3%, 0)
+        scale(1.15);
+
+    filter:
+        brightness(1.08)
+        saturate(1.12);
+
+}
+
+/* ========================================
+   03 - HABILIDADES
+======================================== */
+
+body[data-screen="habilidades"] .scene::before {
+
+    /* Movimento para direita e aproximação */
+    transform:
+        translate3d(2.5%, -1.4%, 0)
+        scale(1.17);
+
+    filter:
+        brightness(0.94)
+        saturate(1.18);
+
+}
+
+/* ========================================
+   04 - MINHA HISTÓRIA
+======================================== */
+
+body[data-screen="sobre"] .scene::before {
+
+    /* Movimento vertical, mais contemplativo */
+    transform:
+        translate3d(-1.5%, -2.1%, 0)
+        scale(1.12);
+
+    filter:
+        brightness(0.82)
+        saturate(0.95);
+
+}
+
+/* ========================================
+   05 - CONTATO
+======================================== */
+
+body[data-screen="contato"] .scene::before {
+
+    transform:
+        translate3d(1.9%, 1.6%, 0)
+        scale(1.13);
+
+    filter:
+        brightness(1.02)
+        saturate(1.08);
+
+}
+
+/* ========================================
+   GRADE DIGITAL DINÂMICA
+======================================== */
+
+.scene__grid {
+
+    opacity: 0.25;
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+
+}
+
+body[data-screen="inicio"] .scene__grid {
+    opacity: 0.25;
+    transform: translateX(0);
+}
+
+body[data-screen="projetos"] .scene__grid {
+    opacity: 0.6;
+    transform: translateX(-1.5%);
+}
+
+body[data-screen="habilidades"] .scene__grid {
+    opacity: 0.8;
+    transform: translateX(1.5%);
+}
+
+body[data-screen="sobre"] .scene__grid {
+    opacity: 0.35;
+    transform: translateY(-1%);
+}
+
+body[data-screen="contato"] .scene__grid {
+    opacity: 0.65;
+    transform: translateY(1%);
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .scene::before,
+    .scene__grid {
+        transition: none !important;
+    }
+
+}
+
+/* ========================================
+   PG REALITY - MISSION DATABASE
+======================================== */
+
+.panel--projects {
+    container-type: inline-size;
+}
+
+.project-hub {
+    display: grid;
+    grid-template-columns:
+        minmax(165px, 0.85fr)
+        minmax(0, 1.55fr);
+
+    gap: 16px;
+    align-items: start;
+
+    margin-top: 28px;
+}
+
+/* ========================================
+   LISTA DE MISSÕES
+======================================== */
+
+.project-hub__choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.project-choice {
+    width: 100%;
+    min-width: 0;
+    min-height: 83px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px 12px;
+
+    border: 1px solid rgba(120, 207, 255, 0.14);
+    border-left: 3px solid transparent;
+
+    background: rgba(8, 27, 47, 0.82);
+    color: var(--text);
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s,
+        border-color 0.3s,
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.project-choice:hover {
+    background: rgba(35, 91, 141, 0.26);
+    transform: translateX(3px);
+}
+
+.project-choice.is-selected {
+    border-left-color: var(--primary);
+    border-top-color: rgba(120, 207, 255, 0.4);
+    border-right-color: rgba(120, 207, 255, 0.4);
+    border-bottom-color: rgba(120, 207, 255, 0.4);
+
+    background: rgba(31, 81, 124, 0.36);
+
+    box-shadow:
+        inset 0 0 25px rgba(120, 207, 255, 0.05),
+        0 0 18px rgba(120, 207, 255, 0.06);
+}
+
+.project-choice__number {
+    flex-shrink: 0;
+
+    font-family: Consolas, monospace;
+    font-size: 0.75rem;
+    color: var(--primary);
+}
+
+.project-choice__info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    min-width: 0;
+}
+
+.project-choice__info strong {
+    font-size: 0.86rem;
+    overflow-wrap: anywhere;
+}
+
+.project-choice__info small {
+    color: var(--muted);
+    font-size: 0.7rem;
+}
+
+.project-choice__arrow {
+    margin-left: auto;
+    color: var(--primary);
+    font-size: 1.5rem;
+
+    opacity: 0.35;
+    transition: opacity 0.3s;
+}
+
+.project-choice.is-selected .project-choice__arrow {
+    opacity: 1;
+}
+
+/* ========================================
+   PAINEL DE DETALHES
+======================================== */
+
+.project-detail {
+    min-width: 0;
+    overflow: hidden;
+
+    border: 1px solid rgba(120, 207, 255, 0.2);
+
+    background: rgba(7, 21, 38, 0.88);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* ========================================
+   ÁREA DE IMAGEM
+======================================== */
+
+.project-art {
+    --art-accent: #78cfff;
+
+    position: relative;
+    aspect-ratio: 16 / 9;
+    min-height: 180px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 15px 15px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            rgba(69, 150, 222, 0.27),
+            transparent 60%
+        ),
+        linear-gradient(
+            140deg,
+            #153450,
+            #071321
+        );
+}
+
+/* Variações de cor conforme o projeto */
+
+.project-art[data-project="lanchonete"] {
+    --art-accent: #ffc17b;
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            rgba(255, 161, 82, 0.22),
+            transparent 60%
+        ),
+        linear-gradient(140deg, #493024, #101820);
+}
+
+.project-art[data-project="dashboard"] {
+    --art-accent: #83e4dc;
+
+    background:
+        radial-gradient(
+            circle at 70% 30%,
+            rgba(70, 206, 196, 0.2),
+            transparent 60%
+        ),
+        linear-gradient(140deg, #153e4b, #091823);
+}
+
+.project-art__label {
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    z-index: 3;
+
+    color: #c0e3f8;
+    font-family: Consolas, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+
+    text-shadow: 0 2px 8px #000;
+}
+
+/* Captura de tela real, quando existir */
+
+.project-art__image {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ========================================
+   MOCKUP DO SISTEMA
+======================================== */
+
+.project-art__mockup {
+    position: relative;
+    z-index: 2;
+
+    width: min(88%, 370px);
+
+    background: #0b1a2b;
+
+    border: 1px solid rgba(180, 221, 248, 0.25);
+    border-radius: 7px;
+
+    box-shadow:
+        0 16px 45px rgba(0, 0, 0, 0.35),
+        0 0 22px rgba(120, 207, 255, 0.1);
+
+    transform:
+        perspective(700px)
+        rotateY(-5deg)
+        rotateX(3deg);
+}
+
+.project-art__window-bar {
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 0 12px;
+
+    border-bottom: 1px solid #294359;
+    background: #101e2d;
+}
+
+.project-art__dots {
+    display: flex;
+    gap: 5px;
+}
+
+.project-art__dots i {
+    width: 6px;
+    height: 6px;
+
+    background: #66839b;
+    border-radius: 50%;
+}
+
+.project-art__dots i:first-child {
+    background: #c47474;
+}
+
+.project-art__dots i:nth-child(2) {
+    background: #d7b76e;
+}
+
+.project-art__dots i:nth-child(3) {
+    background: #7cb7a3;
+}
+
+.project-art__window-bar > span {
+    color: #91a9bd;
+    font-family: Consolas, monospace;
+    font-size: 0.55rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.project-art__window-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.project-art__kicker {
+    color: var(--art-accent);
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+}
+
+.project-art__window-body strong {
+    color: #f4f8ff;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+.project-art__window-body p {
+    color: #a3b7c7;
+    font-size: 0.68rem;
+}
+
+.project-art__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin-top: 8px;
+}
+
+.project-art__lines span {
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(120, 207, 255, 0.25);
+}
+
+.project-art__lines span:first-child {
+    width: 85%;
+}
+
+.project-art__lines span:last-child {
+    width: 60%;
+}
+
+.project-art__tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+
+    margin-top: 7px;
+}
+
+.project-art__tiles span {
+    height: 32px;
+
+    background: rgba(120, 207, 255, 0.11);
+    border: 1px solid rgba(120, 207, 255, 0.12);
+    border-radius: 3px;
+}
+
+/* ========================================
+   INFORMAÇÕES DO PROJETO
+======================================== */
+
+.project-detail__content {
+    padding: 24px;
+}
+
+.project-detail__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    color: var(--primary);
+    font-family: Consolas, monospace;
+    font-size: 0.68rem;
+}
+
+.project-detail__status {
+    color: #85e4c6;
+    font-size: 0.65rem;
+}
+
+.project-detail__content h3 {
+    margin: 18px 0 12px;
+
+    font-size: clamp(1.3rem, 2vw, 1.9rem);
+    color: #f0f7ff;
+}
+
+.project-detail__content p {
+    color: var(--muted);
+    font-size: 0.87rem;
+    line-height: 1.7;
+}
+
+.project-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-top: 20px;
+}
+
+.project-detail__tags span {
+    padding: 7px 10px;
+
+    background: rgba(120, 207, 255, 0.08);
+    border: 1px solid rgba(120, 207, 255, 0.18);
+
+    color: #acdfff;
+    font-size: 0.7rem;
+}
+
+.project-detail__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-top: 24px;
+    padding: 15px;
+
+    border: 1px solid var(--primary);
+    background: rgba(120, 207, 255, 0.12);
+
+    color: white;
+    text-decoration: none;
+
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+
+    transition:
+        background 0.25s,
+        box-shadow 0.25s,
+        transform 0.25s;
+}
+
+.project-detail__link span {
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.project-detail__link:hover {
+    background: rgba(120, 207, 255, 0.24);
+    box-shadow: 0 0 25px rgba(120, 207, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   ANIMAÇÃO DE TROCA DE MISSÃO
+======================================== */
+
+.project-detail.is-updating .project-art,
+.project-detail.is-updating .project-detail__content {
+    animation: missionSwap 0.45s ease both;
+}
+
+@keyframes missionSwap {
+    from {
+        opacity: 0.45;
+        transform: translateY(10px);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE DA SEÇÃO
+======================================== */
+
+@container (max-width: 620px) {
+    .project-hub {
+        grid-template-columns: 1fr;
+    }
+
+    .project-hub__choices {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .project-choice {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+
+        min-height: 110px;
+        padding: 12px;
+    }
+
+    .project-choice__arrow {
+        display: none;
+    }
+}
+
+@container (max-width: 430px) {
+    .project-hub__choices {
+        grid-template-columns: 1fr;
+    }
+
+    .project-choice {
+        flex-direction: row;
+        align-items: center;
+        min-height: 65px;
+    }
+
+    .project-choice__arrow {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-detail__content {
+        padding: 18px;
+    }
+
+    .project-art {
+        min-height: 170px;
+    }
+
+    .project-art__window-body {
+        padding: 12px;
+    }
+
+    .project-art__tiles span {
+        height: 22px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-detail.is-updating .project-art,
+    .project-detail.is-updating .project-detail__content {
+        animation: none !important;
+    }
+}
+
+/* ========================================
+   PG REALITY - SKILL TREE
+======================================== */
+
+.panel--skills {
+    container-type: inline-size;
+    container-name: skills;
+}
+
+.skill-tree {
+    margin-top: 26px;
+}
+
+/* ========================================
+   CAMINHOS DE HABILIDADES
+======================================== */
+
+.skill-tree__paths {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.skill-path {
+    min-width: 0;
+    padding: 16px 10px;
+
+    background: rgba(7, 23, 41, 0.68);
+    border: 1px solid rgba(120, 207, 255, 0.15);
+}
+
+.skill-path__title {
+    min-height: 35px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-bottom: 18px;
+
+    color: #c5d9e9;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.skill-path__title span {
+    color: var(--primary);
+    font-family: Consolas, monospace;
+}
+
+/* Conexão vertical entre os nós */
+
+.skill-path__nodes {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+
+    padding-left: 18px;
+}
+
+.skill-path__nodes::before {
+    content: "";
+    position: absolute;
+
+    left: 7px;
+    top: 20px;
+    bottom: 20px;
+
+    width: 1px;
+
+    background: linear-gradient(
+        to bottom,
+        #78cfff,
+        rgba(120, 207, 255, 0.12)
+    );
+}
+
+/* ========================================
+   NÓS DA ÁRVORE
+======================================== */
+
+.skill-node {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    min-height: 52px;
+
+    padding: 10px;
+
+    background: rgba(12, 34, 56, 0.9);
+    border: 1px solid rgba(120, 207, 255, 0.22);
+
+    color: #b8cddd;
+
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        background 0.3s,
+        border-color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s;
+}
+
+/* Conexão horizontal */
+
+.skill-node::before {
+    content: "";
+    position: absolute;
+
+    width: 12px;
+    height: 1px;
+
+    left: -12px;
+    top: 50%;
+
+    background: #4a8fb9;
+}
+
+.skill-node__icon {
+    flex-shrink: 0;
+
+    color: #78cfff;
+    font-size: 1.1rem;
+}
+
+.skill-node:hover {
+    border-color: #78cfff;
+    background: rgba(38, 93, 139, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Tecnologia selecionada */
+
+.skill-node.is-selected {
+    color: #f2f9ff;
+
+    background: rgba(44, 113, 170, 0.32);
+    border-color: #78cfff;
+
+    box-shadow:
+        0 0 16px rgba(120, 207, 255, 0.14),
+        inset 0 0 18px rgba(120, 207, 255, 0.06);
+}
+
+.skill-node.is-selected .skill-node__icon {
+    text-shadow: 0 0 12px #78cfff;
+}
+
+/* ========================================
+   PAINEL DE INFORMAÇÕES
+======================================== */
+
+.skill-tree__details {
+    margin-top: 22px;
+    padding: clamp(18px, 3vw, 28px);
+
+    background:
+        linear-gradient(
+            125deg,
+            rgba(18, 49, 77, 0.95),
+            rgba(7, 20, 37, 0.96)
+        );
+
+    border: 1px solid rgba(120, 207, 255, 0.28);
+    border-left: 3px solid #78cfff;
+
+    animation: skillDetailReveal 0.5s ease both;
+}
+
+.skill-tree__detail-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    color: #78cfff;
+
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.skill-tree__detail-top span:last-child {
+    color: #819fb7;
+}
+
+.skill-tree__details h3 {
+    margin: 20px 0 12px;
+
+    color: #f2f8ff;
+    font-size: clamp(1.5rem, 3vw, 2.3rem);
+}
+
+.skill-tree__details > p {
+    max-width: 630px;
+
+    color: #bdd0df;
+    font-size: 0.93rem;
+    line-height: 1.7;
+}
+
+/* APLICAÇÕES E PROJETOS */
+
+.skill-tree__usage,
+.skill-tree__projects {
+    margin-top: 25px;
+}
+
+.skill-tree__usage h4,
+.skill-tree__projects h4 {
+    margin-bottom: 10px;
+
+    color: #78cfff;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+}
+
+.skill-tree__usage p {
+    color: #a9bfd1;
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+#skillProjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+#skillProjects span {
+    padding: 9px 12px;
+
+    color: #c6e7fb;
+    background: rgba(120, 207, 255, 0.1);
+
+    border: 1px solid rgba(120, 207, 255, 0.2);
+
+    font-size: 0.75rem;
+}
+
+/* BOTÃO PARA ACESSAR PROJETO */
+
+.skill-tree__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+
+    margin-top: 28px;
+    padding: 15px 19px;
+
+    border: 1px solid #78cfff;
+    background: rgba(120, 207, 255, 0.1);
+
+    color: #edf8ff;
+    text-decoration: none;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    transition:
+        background 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s;
+}
+
+.skill-tree__link:hover {
+    background: rgba(120, 207, 255, 0.22);
+
+    box-shadow: 0 0 22px
+        rgba(120, 207, 255, 0.15);
+
+    transform: translateY(-2px);
+}
+
+/* ========================================
+   ANIMAÇÃO
+======================================== */
+
+@keyframes skillDetailReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@container skills (max-width: 640px) {
+    .skill-tree__paths {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .skill-path:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@container skills (max-width: 430px) {
+    .skill-tree__paths {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-path:last-child {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill-tree__details {
+        padding: 17px;
+    }
+
+    .skill-tree__detail-top {
+        flex-wrap: wrap;
+    }
+
+    .skill-tree__link {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skill-tree__details,
+    .skill-node {
+        animation: none !important;
+        transition: none !important;
+    }
+}
