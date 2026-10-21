@@ -169,3 +169,25 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc"
+
+# ========================================
+# Node.js / NPM
+# ========================================
+
+# Dependências instaladas
+node_modules/
+
+# Logs do npm
+npm-debug.log*
+npm-error.log*
+
+# Cache do npm
+.npm/
+
+# Arquivos temporários
+*.tsbuildinfo
+
+# Segredos e credenciais
+.env
+.env.local
+.env.production

@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-pedro-gavazzi",
+  "version": "1.0.0",
+  "description": "Portfólio profissional desenvolvido para apresentar meus\r projetos, habilidades e experiências na área de tecnologia.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/G4vazzi/portfolio-pedro-gavazzi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/G4vazzi/portfolio-pedro-gavazzi/issues"
+  },
+  "homepage": "https://github.com/G4vazzi/portfolio-pedro-gavazzi#readme",
+  "dependencies": {
+    "psn-api": "^2.18.1"
+  }
+}
