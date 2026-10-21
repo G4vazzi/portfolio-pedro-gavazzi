@@ -1,3 +1,5 @@
+"use strict";
+
 import {
     exchangeNpssoForAccessCode,
     exchangeAccessCodeForAuthTokens,
@@ -7,82 +9,154 @@ import {
 
 async function main() {
 
+    /* ========================================
+       1. VALIDAR NPSSO
+    ======================================== */
+
     const npsso = (process.env.PSN_NPSSO ?? "").trim();
 
     if (!npsso) {
-        throw new Error("Token PSN_NPSSO não configurado.");
-    }
-
-    // Exibe apenas o comprimento, nunca o token.
-    console.log("Comprimento do NPSSO:", npsso.length);
-
-    // Valida o formato esperado do NPSSO.
-    if (!/^[A-Za-z0-9_-]{64}$/.test(npsso)) {
         throw new Error(
-            "Formato NPSSO inválido. Copie somente os 64 caracteres " +
-            "do valor npsso, sem aspas, chaves ou espaços."
+            "Token PSN_NPSSO não configurado."
         );
     }
 
+    if (!/^[A-Za-z0-9_-]{64}$/.test(npsso)) {
+        throw new Error(
+            "Formato NPSSO inválido."
+        );
+    }
+
+    console.log("NPSSO validado.");
     console.log("Conectando à PlayStation Network...");
 
-    // Autenticação
-    console.log("ETAPA 1: Solicitando Código de acesso...");
-    const accessCode = 
+
+    /* ========================================
+       2. AUTENTICAÇÃO
+    ======================================== */
+
+    console.log("\nETAPA 1: Solicitando código de acesso...");
+
+    const accessCode =
         await exchangeNpssoForAccessCode(npsso);
 
-    console.log("ETAPA 1: Concluida.")
+    console.log("ETAPA 1: Concluída.");
 
-    console.log("ETAPA 2: Solicitando Tokens de autenticação...");
+
+    console.log("\nETAPA 2: Obtendo tokens...");
+
     const tokens =
         await exchangeAccessCodeForAuthTokens(accessCode);
 
-    console.log("ETAPA 2: Concluida.")
+    console.log("ETAPA 2: Concluída.");
 
-    // Perfil de troféus
+
+    /* ========================================
+       3. AUTORIZAÇÃO
+    ======================================== */
+
+    const authorization = {
+        accessToken: tokens.accessToken
+    };
+
+    console.log("\nAutorização configurada.");
+
+
+    /* ========================================
+       4. CONSULTAR PERFIL PSN
+    ======================================== */
+
+    console.log("\nETAPA 3: Consultando troféus...");
+
     const profile =
         await getUserTrophyProfileSummary(
             authorization,
             "me"
         );
 
-    console.log("Conexão realizada!");
+    console.log("ETAPA 3: Concluída.");
+
+    console.log("\n===== PERFIL PLAYSTATION =====");
 
     console.log(
-        "Nível de troféus:",
+        "Nível:",
         profile.trophyLevel
     );
 
     console.log(
-        "Total de platinas:",
+        "Platina:",
         profile.earnedTrophies?.platinum ?? 0
     );
 
-    // Consulta alguns jogos
-    const result = await getUserTitles(
-        authorization,
-        "me",
-        { limit: 5 }
+    console.log(
+        "Ouro:",
+        profile.earnedTrophies?.gold ?? 0
     );
 
-    console.log("\nJogos encontrados:");
+    console.log(
+        "Prata:",
+        profile.earnedTrophies?.silver ?? 0
+    );
 
-    for (const game of result.trophyTitles ?? []) {
+    console.log(
+        "Bronze:",
+        profile.earnedTrophies?.bronze ?? 0
+    );
+
+
+    /* ========================================
+       5. CONSULTAR JOGOS
+    ======================================== */
+
+    console.log("\nETAPA 4: Consultando jogos...");
+
+    const response = await getUserTitles(
+        authorization,
+        "me",
+        {
+            limit: 10,
+            offset: 0
+        }
+    );
+
+    console.log("ETAPA 4: Concluída.");
+
+    console.log("\n===== JOGOS ENCONTRADOS =====");
+
+    const games = response.trophyTitles ?? [];
+
+    games.forEach((game, index) => {
+
+        const platinum =
+            game.earnedTrophies?.platinum ?? 0;
+
         console.log(
-            "-",
-            game.trophyTitleName,
-            "| Platinas:",
-            game.earnedTrophies?.platinum ?? 0
+            `${index + 1}. ${game.trophyTitleName}`
         );
-    }
+
+        console.log(
+            `   Platina: ${platinum > 0 ? "SIM" : "NÃO"}`
+        );
+
+    });
+
+    console.log("\n===== TESTE FINALIZADO =====");
 
 }
+
+
+/* ========================================
+   TRATAMENTO DE ERROS
+======================================== */
 
 main().catch(error => {
 
     console.error("\nERRO NA INTEGRAÇÃO PSN");
 
-    console.error("Mensagem:", error.message);
+    console.error(
+        "Mensagem:",
+        error.message
+    );
 
     console.error(
         "Código:",
