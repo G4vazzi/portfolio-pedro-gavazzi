@@ -2535,3 +2535,1235 @@ body[data-screen="contato"] .scene__grid {
         transition: none !important;
     }
 }
+
+/* ========================================
+   PG REALITY - STORY MODE
+======================================== */
+
+.panel--story {
+    container-type: inline-size;
+    container-name: story;
+}
+
+.story-layout {
+    display: grid;
+    grid-template-columns:
+        minmax(150px, 0.85fr)
+        minmax(0, 1.5fr);
+
+    gap: 18px;
+    align-items: start;
+
+    margin-top: 30px;
+}
+
+/* ========================================
+   LISTA DE CAPÍTULOS
+======================================== */
+
+.story-chapters {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.story-chapters::before {
+    content: "";
+    position: absolute;
+
+    top: 25px;
+    bottom: 25px;
+    left: 18px;
+
+    width: 1px;
+
+    background: linear-gradient(
+        #78cfff,
+        rgba(120, 207, 255, 0.12)
+    );
+}
+
+.story-chapter {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 82px;
+
+    padding: 14px 12px;
+
+    color: #c3d5e5;
+    background: rgba(9, 27, 47, 0.84);
+
+    border: 1px solid rgba(120, 207, 255, 0.15);
+    border-left: 3px solid transparent;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.story-chapter:hover {
+    background: rgba(40, 95, 145, 0.25);
+    transform: translateX(4px);
+}
+
+.story-chapter.is-selected {
+    background: rgba(35, 88, 133, 0.36);
+    border-left-color: #78cfff;
+    border-top-color: rgba(120, 207, 255, 0.35);
+    border-right-color: rgba(120, 207, 255, 0.35);
+    border-bottom-color: rgba(120, 207, 255, 0.35);
+}
+
+.story-chapter__number {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+
+    color: #78cfff;
+    background: #0b2439;
+
+    border: 1px solid #497999;
+
+    font-family: Consolas, monospace;
+    font-size: 0.72rem;
+}
+
+.story-chapter.is-selected
+.story-chapter__number {
+    background: #78cfff;
+    border-color: #78cfff;
+    color: #071321;
+}
+
+.story-chapter__info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    min-width: 0;
+}
+
+.story-chapter__info small {
+    color: #83a6c0;
+    font-family: Consolas, monospace;
+    font-size: 0.62rem;
+}
+
+.story-chapter__info strong {
+    color: #edf7ff;
+    font-size: 0.83rem;
+    line-height: 1.4;
+}
+
+.story-chapter__arrow {
+    margin-left: auto;
+    color: #78cfff;
+    font-size: 1.5rem;
+    opacity: 0.35;
+}
+
+.story-chapter.is-selected
+.story-chapter__arrow {
+    opacity: 1;
+}
+
+/* ========================================
+   PAINEL CINEMATOGRÁFICO
+======================================== */
+
+.story-screen {
+    min-width: 0;
+    overflow: hidden;
+
+    background: rgba(7, 20, 36, 0.94);
+    border: 1px solid rgba(120, 207, 255, 0.24);
+
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.25);
+}
+
+/* CENÁRIO DOS CAPÍTULOS */
+
+.story-screen__visual {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 190px;
+    padding: 18px;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            110deg,
+            rgba(5, 16, 31, 0.82),
+            rgba(18, 56, 89, 0.25)
+        ),
+        var(--scene-photo);
+
+    background-position: center;
+    background-size: cover;
+
+    transition:
+        background-position 1s ease,
+        filter 1s ease;
+}
+
+/* GRADE DIGITAL SOBRE A FOTOGRAFIA */
+
+.story-screen__visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(120, 207, 255, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(120, 207, 255, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 35px 35px;
+
+    pointer-events: none;
+}
+
+/* SCANNER UTILIZADO NA TRANSIÇÃO */
+
+.story-screen__visual::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    top: -30%;
+
+    height: 25%;
+
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(120, 207, 255, 0.08),
+        rgba(120, 207, 255, 0.5),
+        transparent
+    );
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ELEMENTOS DO CENÁRIO */
+
+.story-screen__code {
+    position: relative;
+    z-index: 1;
+
+    color: #c7e9ff;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+}
+
+.story-screen__number {
+    position: absolute;
+
+    right: 15px;
+    bottom: 6px;
+
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 800;
+    line-height: 1;
+
+    color: rgba(200, 231, 255, 0.16);
+}
+
+.story-screen__coordinates {
+    position: relative;
+    z-index: 1;
+
+    color: #b2cce0;
+    font-family: Consolas, monospace;
+    font-size: 0.55rem;
+    letter-spacing: 1px;
+}
+
+/* ENQUADRAMENTOS POR CAPÍTULO */
+
+.story-screen[data-chapter="inicio"]
+.story-screen__visual {
+    background-position: center 45%;
+}
+
+.story-screen[data-chapter="civil"]
+.story-screen__visual {
+    background-position: 25% 65%;
+}
+
+.story-screen[data-chapter="mudanca"]
+.story-screen__visual {
+    background-position: 75% 35%;
+}
+
+.story-screen[data-chapter="atual"]
+.story-screen__visual {
+    background-position: 50% 75%;
+}
+
+/* ========================================
+   TEXTO DO CAPÍTULO
+======================================== */
+
+.story-screen__content {
+    padding: 24px;
+}
+
+.story-screen__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.story-screen__meta span:last-child {
+    color: #809db7;
+}
+
+.story-screen__content h3 {
+    margin: 18px 0 12px;
+
+    color: #f1f8ff;
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+}
+
+.story-screen__content > p {
+    color: #b7cbdd;
+    font-size: 0.88rem;
+    line-height: 1.75;
+}
+
+.story-screen__milestone {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-top: 24px;
+    padding: 16px;
+
+    background: rgba(120, 207, 255, 0.06);
+    border-left: 2px solid #78cfff;
+}
+
+.story-screen__milestone span {
+    color: #78cfff;
+    font-size: 0.64rem;
+    letter-spacing: 2px;
+}
+
+.story-screen__milestone strong {
+    color: #e1effa;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* BOTÃO DE AVANÇAR */
+
+.story-screen__next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+
+    width: 100%;
+
+    margin-top: 22px;
+    padding: 15px;
+
+    background: rgba(120, 207, 255, 0.12);
+    border: 1px solid #78cfff;
+
+    color: #f2f9ff;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition:
+        background 0.3s,
+        transform 0.3s;
+}
+
+.story-screen__next:hover {
+    background: rgba(120, 207, 255, 0.24);
+    transform: translateY(-2px);
+}
+
+.story-screen__next span:last-child {
+    color: #78cfff;
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   PROGRESSO DA NARRATIVA
+======================================== */
+
+.story-progress {
+    margin-top: 25px;
+}
+
+.story-progress__bar {
+    width: 100%;
+    height: 4px;
+
+    overflow: hidden;
+    background: rgba(120, 207, 255, 0.14);
+}
+
+.story-progress__bar span {
+    display: block;
+    height: 100%;
+
+    background: #78cfff;
+    box-shadow: 0 0 15px #78cfff;
+
+    transition: width 0.6s ease;
+}
+
+.story-progress__info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 12px;
+
+    color: #91adc3;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   TRANSIÇÃO ENTRE CAPÍTULOS
+======================================== */
+
+.story-screen.is-transitioning
+.story-screen__content {
+    animation: storyFade 0.55s ease both;
+}
+
+.story-screen.is-transitioning
+.story-screen__visual::after {
+    animation: storyScan 0.8s ease both;
+}
+
+@keyframes storyFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+        filter: blur(3px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes storyScan {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(600%);
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@container story (max-width: 690px) {
+    .story-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .story-chapters {
+        display: grid;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .story-chapters::before {
+        display: none;
+    }
+}
+
+@container story (max-width: 390px) {
+    .story-chapters {
+        grid-template-columns: 1fr;
+    }
+
+    .story-chapter {
+        min-height: 65px;
+    }
+}
+
+@media (max-width: 480px) {
+    .story-screen__content {
+        padding: 18px;
+    }
+
+    .story-progress__info {
+        flex-wrap: wrap;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .story-screen__visual,
+    .story-progress__bar span {
+        transition: none !important;
+    }
+
+    .story-screen.is-transitioning
+    .story-screen__content,
+    .story-screen.is-transitioning
+    .story-screen__visual::after {
+        animation: none !important;
+    }
+}
+
+/* ========================================
+   PG REALITY - ALÉM DO CÓDIGO
+======================================== */
+
+.panel--offcode {
+    container-type: inline-size;
+    container-name: offcode;
+}
+
+/* ========================================
+   PERFIL DO JOGADOR
+======================================== */
+
+.offcode-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    margin-top: 25px;
+    padding: 22px;
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(28, 73, 111, 0.65),
+            rgba(7, 21, 39, 0.88)
+        );
+
+    border: 1px solid var(--border);
+}
+
+.offcode-profile__avatar {
+    position: relative;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    width: 76px;
+    height: 76px;
+
+    border: 1px solid #78cfff;
+    border-radius: 50%;
+
+    color: #e8f6ff;
+    background: #102e49;
+
+    box-shadow:
+        0 0 25px rgba(120, 207, 255, 0.14),
+        inset 0 0 20px rgba(120, 207, 255, 0.1);
+}
+
+.offcode-profile__avatar::after {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(120, 207, 255, 0.3);
+    border-radius: 50%;
+}
+
+.offcode-profile__avatar span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.offcode-profile__identity {
+    flex: 1;
+    min-width: 0;
+}
+
+.offcode-profile__label {
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+.offcode-profile__identity h3 {
+    margin: 9px 0;
+    color: #f0f7ff;
+    font-size: 1.3rem;
+}
+
+.offcode-profile__identity p {
+    color: #a9c0d3;
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.offcode-profile__status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.67rem;
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   ÁREA INTERATIVA
+======================================== */
+
+.offcode-layout {
+    display: grid;
+    grid-template-columns:
+        minmax(145px, 0.8fr)
+        minmax(0, 1.5fr);
+
+    align-items: start;
+    gap: 16px;
+
+    margin-top: 20px;
+}
+
+.offcode-options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.offcode-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    min-height: 60px;
+    padding: 12px;
+
+    border: 1px solid var(--border);
+    border-left: 3px solid transparent;
+
+    color: #b7ccdd;
+    background: rgba(8, 26, 46, 0.86);
+
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: left;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s,
+        border-color 0.3s,
+        transform 0.3s;
+}
+
+.offcode-option:hover {
+    background: rgba(42, 96, 143, 0.3);
+    transform: translateX(3px);
+}
+
+.offcode-option.is-selected {
+    color: #ffffff;
+    background: rgba(40, 105, 158, 0.33);
+    border-left-color: #78cfff;
+    border-top-color: rgba(120, 207, 255, 0.35);
+    border-right-color: rgba(120, 207, 255, 0.35);
+    border-bottom-color: rgba(120, 207, 255, 0.35);
+}
+
+.offcode-option__number {
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.7rem;
+}
+
+.offcode-option__arrow {
+    margin-left: auto;
+    color: #78cfff;
+    font-size: 1.4rem;
+    opacity: 0.4;
+}
+
+.offcode-option.is-selected
+.offcode-option__arrow {
+    opacity: 1;
+}
+
+/* ========================================
+   PAINEL DE INFORMAÇÕES
+======================================== */
+
+.offcode-detail {
+    min-width: 0;
+    overflow: hidden;
+
+    background: rgba(7, 20, 36, 0.9);
+    border: 1px solid rgba(120, 207, 255, 0.22);
+}
+
+.offcode-detail__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    padding: 15px;
+
+    border-bottom: 1px solid var(--border);
+
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.63rem;
+    letter-spacing: 1px;
+}
+
+.offcode-detail__top span:last-child {
+    color: #819eb6;
+}
+
+/* CENÁRIO ABSTRATO DIGITAL */
+
+.offcode-scene {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+
+    height: 150px;
+    padding: 18px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 70% 35%,
+            rgba(84, 172, 237, 0.32),
+            transparent 60%
+        ),
+        linear-gradient(135deg, #183958, #071322);
+
+    transition: background 0.4s ease;
+}
+
+.offcode-scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(120, 207, 255, 0.12) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(120, 207, 255, 0.12) 1px,
+            transparent 1px
+        );
+
+    background-size: 32px 32px;
+
+    mask-image: linear-gradient(
+        to top,
+        black,
+        transparent
+    );
+}
+
+.offcode-scene__glyph {
+    position: absolute;
+    top: -25px;
+    right: 12px;
+
+    color: rgba(169, 224, 255, 0.11);
+
+    font-size: 9rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.offcode-scene__label {
+    position: relative;
+    z-index: 1;
+
+    color: #d6f1ff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+.offcode-scene__scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20%;
+
+    height: 22%;
+
+    background: linear-gradient(
+        transparent,
+        rgba(120, 207, 255, 0.36),
+        transparent
+    );
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* DIFERENTES ATMOSFERAS, SEM MUDAR A PALETA */
+
+.offcode-detail[data-interest="trofeus"] .offcode-scene {
+    background:
+        radial-gradient(
+            ellipse at 25% 50%,
+            rgba(120, 207, 255, 0.4),
+            transparent 65%
+        ),
+        linear-gradient(135deg, #214c71, #071322);
+}
+
+.offcode-detail[data-interest="futebol"] .offcode-scene {
+    background:
+        radial-gradient(
+            ellipse at 50% 100%,
+            rgba(125, 180, 220, 0.3),
+            transparent 75%
+        ),
+        linear-gradient(135deg, #26384c, #071322);
+}
+
+.offcode-detail[data-interest="carros"] .offcode-scene {
+    background:
+        linear-gradient(
+            145deg,
+            #0b192b 20%,
+            #23537c 60%,
+            #071322
+        );
+}
+
+.offcode-detail[data-interest="pessoal"] .offcode-scene {
+    background:
+        radial-gradient(
+            ellipse at 60% 35%,
+            rgba(118, 160, 213, 0.28),
+            transparent 70%
+        ),
+        linear-gradient(135deg, #23334e, #071322);
+}
+
+/* TEXTO DO PAINEL */
+
+.offcode-detail__body {
+    padding: 23px;
+}
+
+.offcode-detail__category {
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.67rem;
+    letter-spacing: 2px;
+}
+
+.offcode-detail__body h3 {
+    margin: 15px 0 13px;
+
+    color: #f0f7ff;
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+}
+
+.offcode-detail__body p {
+    color: #b6cbdc;
+    font-size: 0.87rem;
+    line-height: 1.75;
+}
+
+.offcode-detail__body h4 {
+    margin: 25px 0 12px;
+
+    color: #78cfff;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+}
+
+/* DESTAQUES */
+
+.offcode-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.offcode-highlights span {
+    padding: 9px 12px;
+
+    color: #d1ecff;
+    background: rgba(120, 207, 255, 0.09);
+
+    border: 1px solid rgba(120, 207, 255, 0.2);
+
+    font-size: 0.73rem;
+}
+
+/* PRÓXIMO INTERESSE */
+
+.offcode-next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    width: 100%;
+    margin-top: 25px;
+    padding: 15px;
+
+    border: 1px solid #78cfff;
+
+    color: #f0f7ff;
+    background: rgba(120, 207, 255, 0.12);
+
+    font: inherit;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.offcode-next:hover {
+    background: rgba(120, 207, 255, 0.25);
+}
+
+.offcode-next span:last-child {
+    color: #78cfff;
+    font-size: 1.2rem;
+}
+
+/* ========================================
+   RODAPÉ DA SEÇÃO
+======================================== */
+
+.offcode-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 20px;
+
+    color: #819fb9;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   ANIMAÇÃO DE TRANSIÇÃO
+======================================== */
+
+.offcode-detail.is-switching .offcode-scene__scan {
+    animation: offcodeScan 0.55s ease;
+}
+
+.offcode-detail.is-switching .offcode-detail__body {
+    animation: offcodeReveal 0.4s ease both;
+}
+
+@keyframes offcodeScan {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    25% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(700%);
+    }
+}
+
+@keyframes offcodeReveal {
+    from {
+        opacity: 0.3;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@container offcode (max-width: 650px) {
+    .offcode-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .offcode-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@container offcode (max-width: 420px) {
+    .offcode-options {
+        grid-template-columns: 1fr;
+    }
+
+    .offcode-profile {
+        flex-wrap: wrap;
+    }
+
+    .offcode-profile__status {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .offcode-detail__body {
+        padding: 18px;
+    }
+
+    .offcode-scene {
+        height: 125px;
+    }
+
+    .offcode-footer {
+        flex-wrap: wrap;
+    }
+}
+
+/* ANIMAÇÃO DA NOVA OPÇÃO DO MENU PRINCIPAL */
+
+.app.is-revealing .game-menu__item:nth-child(6) {
+    animation-delay: 0.7s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .offcode-detail.is-switching .offcode-scene__scan,
+    .offcode-detail.is-switching .offcode-detail__body {
+        animation: none !important;
+    }
+}
+
+/* ========================================
+   PLAYSTATION TROPHIES
+======================================== */
+
+.psn-trophies {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* Só aparece na categoria Platinas */
+
+.offcode-detail:not([data-interest="trofeus"])
+.psn-trophies {
+    display: none;
+}
+
+.psn-trophies__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.psn-trophies__header > div:first-child > span {
+    color: var(--primary);
+    font: 0.65rem Consolas, monospace;
+    letter-spacing: 2px;
+}
+
+.psn-trophies__header h4 {
+    margin-top: 10px;
+    color: #f0f7ff;
+    font-size: 1rem;
+}
+
+.psn-trophies__total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 76px;
+    padding: 12px;
+
+    border: 1px solid rgba(120, 207, 255, .3);
+    background: rgba(120, 207, 255, .08);
+}
+
+.psn-trophies__total > span {
+    color: #f1f8ff;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.psn-trophies__total small {
+    color: var(--primary);
+    font-size: .6rem;
+    letter-spacing: 1px;
+}
+
+.psn-trophies__status {
+    margin: 15px 0;
+    color: #91aac2;
+    font-size: .72rem;
+}
+
+.psn-trophies__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.psn-trophy {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 11px;
+
+    border: 1px solid rgba(120, 207, 255, .18);
+    background: rgba(13, 34, 55, .8);
+}
+
+.psn-trophy__image {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.psn-trophy__placeholder {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    background: #17344d;
+    color: #78cfff;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+
+.psn-trophy__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.psn-trophy__info strong {
+    display: block;
+    color: #f0f7ff;
+    font-size: .84rem;
+    line-height: 1.4;
+}
+
+.psn-trophy__info small {
+    display: block;
+    margin-top: 6px;
+    color: #91abc0;
+    font-size: .72rem;
+}
+
+.psn-trophy__icon {
+    color: #78cfff;
+    font-size: 1.4rem;
+}
+
+.psn-trophies__link {
+    display: inline-block;
+    margin-top: 18px;
+    color: #78cfff;
+    font-size: .75rem;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.psn-trophies__link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .psn-trophy__image,
+    .psn-trophy__placeholder {
+        width: 52px;
+        height: 52px;
+    }
+}

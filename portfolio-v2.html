@@ -17,6 +17,7 @@
 
 
     <script src="js/portfolio-v2.js" defer></script>
+    <script src="js/psn-trophies.js" defer></script>
 </head>
 
 <body>
@@ -226,9 +227,17 @@
                     </button>
 
                     <button class="game-menu__item"
-                            data-screen="contato"
+                            data-screen="alem"
                             aria-pressed="false">
                         <span class="game-menu__number">05</span>
+                        <span>ALÉM DO CÓDIGO</span>
+                        <span class="game-menu__arrow">›</span>
+                    </button>
+
+                    <button class="game-menu__item"
+                            data-screen="contato"
+                            aria-pressed="false">
+                        <span class="game-menu__number">06</span>
                         <span>CONTATO</span>
                         <span class="game-menu__arrow">›</span>
                     </button>
@@ -252,7 +261,7 @@
 
                 <div class="display__top">
                     <span>PG // PERSONAL DATABASE</span>
-                    <span id="screenCounter">01 / 05</span>
+                    <span id="screenCounter">01 / 06</span>
                 </div>
 
                 <!-- INÍCIO -->
@@ -719,54 +728,431 @@
 
                 </section>
 
-                <!-- MINHA HISTÓRIA -->
-                <section class="panel"
-                         data-panel="sobre"
-                         hidden>
+                <!-- ========================================
+                    MINHA HISTÓRIA - STORY MODE
+                ======================================== -->
+
+                <section class="panel panel--story"
+                        data-panel="sobre"
+                        hidden>
 
                     <span class="panel__eyebrow">
-                        CHARACTER BACKSTORY
+                        PERSONAL ARCHIVE // STORY MODE
                     </span>
 
                     <h2 class="panel__title">
                         MINHA <span>JORNADA.</span>
                     </h2>
 
-                    <div class="timeline">
+                    <p class="panel__description">
+                        Toda trajetória tem seus desafios.
+                        Explore os capítulos que construíram
+                        meu caminho até a tecnologia.
+                    </p>
 
-                        <div class="timeline__item">
-                            <span>CAPÍTULO 01</span>
-                            <h3>O início</h3>
-                            <p>
-                                Minha trajetória começou na
-                                Engenharia Civil, área em que
-                                estudei por três anos.
-                            </p>
+                    <div class="story-layout" id="storyMode">
+
+                        <!-- SELEÇÃO DE CAPÍTULOS -->
+                        <div class="story-chapters"
+                            role="group"
+                            aria-label="Capítulos da minha história">
+
+                            <button type="button"
+                                    class="story-chapter is-selected"
+                                    data-chapter="inicio"
+                                    aria-pressed="true">
+
+                                <span class="story-chapter__number">01</span>
+
+                                <span class="story-chapter__info">
+                                    <small>CAPÍTULO I</small>
+                                    <strong>O início</strong>
+                                </span>
+
+                                <span class="story-chapter__arrow">›</span>
+                            </button>
+
+                            <button type="button"
+                                    class="story-chapter"
+                                    data-chapter="civil"
+                                    aria-pressed="false">
+
+                                <span class="story-chapter__number">02</span>
+
+                                <span class="story-chapter__info">
+                                    <small>CAPÍTULO II</small>
+                                    <strong>Engenharia Civil</strong>
+                                </span>
+
+                                <span class="story-chapter__arrow">›</span>
+                            </button>
+
+                            <button type="button"
+                                    class="story-chapter"
+                                    data-chapter="mudanca"
+                                    aria-pressed="false">
+
+                                <span class="story-chapter__number">03</span>
+
+                                <span class="story-chapter__info">
+                                    <small>CAPÍTULO III</small>
+                                    <strong>Mudança de rota</strong>
+                                </span>
+
+                                <span class="story-chapter__arrow">›</span>
+                            </button>
+
+                            <button type="button"
+                                    class="story-chapter"
+                                    data-chapter="atual"
+                                    aria-pressed="false">
+
+                                <span class="story-chapter__number">04</span>
+
+                                <span class="story-chapter__info">
+                                    <small>CAPÍTULO IV</small>
+                                    <strong>Capítulo atual</strong>
+                                </span>
+
+                                <span class="story-chapter__arrow">›</span>
+                            </button>
+
                         </div>
 
-                        <div class="timeline__item">
-                            <span>CAPÍTULO 02</span>
-                            <h3>Uma nova direção</h3>
-                            <p>
-                                Decidi mudar de caminho para
-                                seguir meu interesse pela
-                                computação e pelo desenvolvimento.
-                            </p>
+                        <!-- APRESENTAÇÃO DO CAPÍTULO -->
+                        <article class="story-screen"
+                                id="storyScreen"
+                                data-chapter="inicio"
+                                aria-live="polite"
+                                aria-atomic="true">
+
+                            <div class="story-screen__visual"
+                                aria-hidden="true">
+
+                                <span class="story-screen__code"
+                                    id="storyVisualCode">
+                                    ORIGIN // FILE_01
+                                </span>
+
+                                <span class="story-screen__number"
+                                    id="storyVisualNumber">
+                                    01
+                                </span>
+
+                                <span class="story-screen__coordinates">
+                                    PG_REALITY // PERSONAL_ARCHIVE
+                                </span>
+
+                            </div>
+
+                            <div class="story-screen__content">
+
+                                <div class="story-screen__meta">
+                                    <span id="storyStage">01 / 04</span>
+                                    <span>ARQUIVO PESSOAL</span>
+                                </div>
+
+                                <h3 id="storyTitle">O início</h3>
+
+                                <p id="storyDescription">
+                                    Depois de concluir o ensino médio,
+                                    comecei a descobrir qual caminho
+                                    profissional queria seguir.
+                                </p>
+
+                                <div class="story-screen__milestone">
+                                    <span>MARCO DA JORNADA</span>
+
+                                    <strong id="storyMilestone">
+                                        Primeiros passos da jornada
+                                    </strong>
+                                </div>
+
+                                <button type="button"
+                                        class="story-screen__next"
+                                        id="storyNext">
+
+                                    <span>PRÓXIMO CAPÍTULO</span>
+                                    <span aria-hidden="true">→</span>
+
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- PROGRESSO DA NARRATIVA -->
+                    <div class="story-progress">
+
+                        <div class="story-progress__bar">
+                            <span id="storyProgressBar"
+                                style="width: 25%"></span>
                         </div>
 
-                        <div class="timeline__item">
-                            <span>CAPÍTULO 03</span>
-                            <h3>Evolução constante</h3>
-                            <p>
-                                Atualmente desenvolvo projetos
-                                e aprofundo meus conhecimentos
-                                em programação e tecnologia.
-                            </p>
+                        <div class="story-progress__info">
+                            <span>JORNADA // REGISTROS</span>
+                            <span id="storyProgressText">
+                                CAPÍTULO 01 DE 04
+                            </span>
                         </div>
 
                     </div>
 
                 </section>
+
+                <!-- ========================================
+                    ALÉM DO CÓDIGO - PLAYER PROFILE
+                ======================================== -->
+
+                <section class="panel panel--offcode"
+                        data-panel="alem"
+                        hidden>
+
+                    <span class="panel__eyebrow">
+                        PLAYER PROFILE // PERSONAL DATABASE
+                    </span>
+
+                    <h2 class="panel__title">
+                        ALÉM DO <span>CÓDIGO.</span>
+                    </h2>
+
+                    <p class="panel__description">
+                        Programar é uma das minhas paixões,
+                        mas minha história vai muito além
+                        das linhas de código.
+                    </p>
+
+                    <!-- IDENTIFICAÇÃO DO JOGADOR -->
+                    <div class="offcode-profile">
+
+                        <div class="offcode-profile__avatar"
+                            aria-hidden="true">
+                            <span>PG</span>
+                        </div>
+
+                        <div class="offcode-profile__identity">
+
+                            <span class="offcode-profile__label">
+                                PLAYER 01 // PROFILE LOADED
+                            </span>
+
+                            <h3>Pedro Gavazzi</h3>
+
+                            <p>
+                                Desenvolvedor, gamer e apaixonado
+                                por novos desafios.
+                            </p>
+
+                        </div>
+
+                        <div class="offcode-profile__status">
+                            <span class="status-dot"></span>
+                            EXPLORANDO
+                        </div>
+
+                    </div>
+
+                    <!-- SISTEMA DE INTERESSES -->
+                    <div class="offcode-layout"
+                        id="offcodeRoot">
+
+                        <!-- CATEGORIAS -->
+                        <div class="offcode-options"
+                            id="offcodeOptions"
+                            role="group"
+                            aria-label="Meus interesses">
+
+                            <button class="offcode-option is-selected"
+                                    type="button"
+                                    data-interest="games"
+                                    aria-pressed="true">
+
+                                <span class="offcode-option__number">01</span>
+
+                                <span>GAMES</span>
+
+                                <span class="offcode-option__arrow">›</span>
+                            </button>
+
+                            <button class="offcode-option"
+                                    type="button"
+                                    data-interest="trofeus"
+                                    aria-pressed="false">
+
+                                <span class="offcode-option__number">02</span>
+
+                                <span>PLATINAS</span>
+
+                                <span class="offcode-option__arrow">›</span>
+                            </button>
+
+                            <button class="offcode-option"
+                                    type="button"
+                                    data-interest="futebol"
+                                    aria-pressed="false">
+
+                                <span class="offcode-option__number">03</span>
+
+                                <span>FUTEBOL</span>
+
+                                <span class="offcode-option__arrow">›</span>
+                            </button>
+
+                            <button class="offcode-option"
+                                    type="button"
+                                    data-interest="carros"
+                                    aria-pressed="false">
+
+                                <span class="offcode-option__number">04</span>
+
+                                <span>CARROS</span>
+
+                                <span class="offcode-option__arrow">›</span>
+                            </button>
+
+                            <button class="offcode-option"
+                                    type="button"
+                                    data-interest="pessoal"
+                                    aria-pressed="false">
+
+                                <span class="offcode-option__number">05</span>
+
+                                <span>VIDA PESSOAL</span>
+
+                                <span class="offcode-option__arrow">›</span>
+                            </button>
+
+                        </div>
+
+                        <!-- DETALHES DA CATEGORIA -->
+                        <article class="offcode-detail"
+                                id="offcodeDetail"
+                                data-interest="games"
+                                aria-live="polite"
+                                aria-atomic="true">
+
+                            <div class="offcode-detail__top">
+
+                                <span id="offcodeIndex">
+                                    PROFILE DATA // 01
+                                </span>
+
+                                <span>ACCESS GRANTED</span>
+
+                            </div>
+
+                            <!-- CENÁRIO DIGITAL -->
+                            <div class="offcode-scene"
+                                aria-hidden="true">
+
+                                <span class="offcode-scene__glyph"
+                                    id="offcodeVisualNumber">
+                                    01
+                                </span>
+
+                                <span class="offcode-scene__label"
+                                    id="offcodeVisualLabel">
+                                    GAMING
+                                </span>
+
+                                <div class="offcode-scene__scan"></div>
+
+                            </div>
+
+                            <div class="offcode-detail__body">
+
+                                <span class="offcode-detail__category"
+                                    id="offcodeCategory">
+                                    DIGITAL WORLDS
+                                </span>
+
+                                <h3 id="offcodeTitle">
+                                    Universos que me inspiram
+                                </h3>
+
+                                <p id="offcodeDescription">
+                                    Os videogames sempre fizeram parte
+                                    da minha vida.
+                                </p>
+
+                                <h4>DESTAQUES</h4>
+
+                                <div class="offcode-highlights"
+                                    id="offcodeHighlights">
+
+                                    <span>Minecraft</span>
+                                    <span>God of War</span>
+                                    <span>GTA V</span>
+
+                                </div>
+
+                                <!-- PLAYSTATION TROPHY SYSTEM -->
+
+                                <section class="psn-trophies"
+                                        id="psnTrophies">
+                                    
+                                    <div class="psn-trophies__header">
+                                        <div>
+                                            <span>PLAYSTATION NETWORK</span>
+                                            <h4>ÚLTIMAS PLATINAS</h4>
+                                        </div>
+
+                                        <div class="psn-trophies__total">
+                                            <span id="psnPlatinumCount">—</span>
+                                            <small>PlATINAS</small>
+                                        </div>
+                                    </div>
+
+                                    <p class="psn-trophies__status"
+                                        id="psnTrophyStatus">
+                                        Carregando informações...
+                                    </p>
+
+                                    <div class="psn-trophies__list" 
+                                        id="psnTrophyList">
+                                    </div>
+                                    
+                                    <a id="psnProfileLink"
+                                        class="psn-trophies__link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        hidden>
+                                        VER PERFIL COMPLETO
+                                    </a>
+
+                                </section>
+
+                                <button class="offcode-next"
+                                        type="button"
+                                        id="offcodeNext">
+
+                                    <span>PRÓXIMO INTERESSE</span>
+                                    <span aria-hidden="true">→</span>
+
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <div class="offcode-footer">
+
+                        <span>
+                            PROFILE DATABASE // PG_REALITY
+                        </span>
+
+                        <span id="offcodeCounter">
+                            01 / 05
+                        </span>
+
+                    </div>
+
+                </section>
+
 
                 <!-- CONTATO -->
                 <section class="panel"

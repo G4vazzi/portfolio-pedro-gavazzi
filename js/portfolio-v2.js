@@ -989,8 +989,657 @@ document.addEventListener("DOMContentLoaded", () => {
 
         selectSkill("python");
 
-    }
+    };
 
+    /* ========================================
+    8. STORY MODE - MINHA HISTÓRIA
+    ======================================== */
+
+    function initializeStory() {
+
+        const root = document.getElementById("storyMode");
+
+        if (!root) {
+            console.warn(
+                "PG Reality: seção Minha História não encontrada."
+            );
+            return;
+        }
+
+        const chapterButtons = [
+            ...root.querySelectorAll(".story-chapter[data-chapter]")
+        ];
+
+        const screen = document.getElementById("storyScreen");
+        const stage = document.getElementById("storyStage");
+        const title = document.getElementById("storyTitle");
+
+        const description = document.getElementById(
+            "storyDescription"
+        );
+
+        const milestone = document.getElementById(
+            "storyMilestone"
+        );
+
+        const visualNumber = document.getElementById(
+            "storyVisualNumber"
+        );
+
+        const visualCode = document.getElementById(
+            "storyVisualCode"
+        );
+
+        const nextButton = document.getElementById("storyNext");
+
+        const progressBar = document.getElementById(
+            "storyProgressBar"
+        );
+
+        const progressText = document.getElementById(
+            "storyProgressText"
+        );
+
+        const required = [
+            screen, stage, title, description, milestone,
+            visualNumber, visualCode, nextButton,
+            progressBar, progressText
+        ];
+
+        if (
+            !chapterButtons.length ||
+            required.some(item => !item)
+        ) {
+            console.warn(
+                "PG Reality: faltam elementos no HTML de Minha História."
+            );
+            return;
+        }
+
+
+        /* ========================================
+        BANCO DE DADOS DOS CAPÍTULOS
+        ======================================== */
+
+        const chapters = [
+
+            {
+                id: "inicio",
+                number: "01",
+                title: "O início",
+
+                description:
+                    "Depois de concluir o ensino médio, comecei " +
+                    "a descobrir qual caminho queria seguir. " +
+                    "Minhas primeiras escolhas profissionais " +
+                    "estavam ligadas à Engenharia Civil.",
+
+                milestone: "Primeiros passos da jornada",
+
+                code: "ORIGIN // FILE_01"
+            },
+
+            {
+                id: "civil",
+                number: "02",
+                title: "Construindo experiência",
+
+                description:
+                    "Estudei Engenharia Civil por três anos e " +
+                    "tive contato com o acompanhamento de obras " +
+                    "e a organização de processos. Aprendi sobre " +
+                    "planejamento, responsabilidade e atenção " +
+                    "aos detalhes.",
+
+                milestone: "Três anos de Engenharia Civil",
+
+                code: "EXPERIENCE // FILE_02"
+            },
+
+            {
+                id: "mudanca",
+                number: "03",
+                title: "Uma nova direção",
+
+                description:
+                    "Percebi que meu interesse estava na " +
+                    "tecnologia. Migrei para a área da " +
+                    "computação e passei a estudar programação, " +
+                    "desenvolvimento de sistemas e bancos de dados.",
+
+                milestone: "Transição para a computação",
+
+                code: "RESTART // FILE_03"
+            },
+
+            {
+                id: "atual",
+                number: "04",
+                title: "O capítulo atual",
+
+                description:
+                    "Hoje aplico o que aprendo em projetos " +
+                    "como SpacoContabil, LanchoneteWeb e " +
+                    "Dashboard Financeiro, desenvolvendo " +
+                    "soluções web, ferramentas e automações.",
+
+                milestone: "Projetos reais e evolução constante",
+
+                code: "ACTIVE QUEST // FILE_04"
+            }
+
+        ];
+
+
+        /* ========================================
+        CAPÍTULO ATUAL
+        ======================================== */
+
+        let currentIndex = 0;
+
+
+        /* ========================================
+        SELECIONAR CAPÍTULO
+        ======================================== */
+
+        function selectChapter(id, animate = true) {
+
+            const index = chapters.findIndex(
+                chapter => chapter.id === id
+            );
+
+            if (index === -1) return;
+
+            currentIndex = index;
+
+            const chapter = chapters[index];
+
+            // Atualiza o capítulo selecionado
+            chapterButtons.forEach(button => {
+
+                const selected =
+                    button.dataset.chapter === id;
+
+                button.classList.toggle(
+                    "is-selected",
+                    selected
+                );
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(selected)
+                );
+
+            });
+
+            // Atualiza informações
+            screen.dataset.chapter = id;
+
+            stage.textContent =
+                `${chapter.number} / ${String(chapters.length).padStart(2, "0")}`;
+
+            title.textContent = chapter.title;
+            description.textContent = chapter.description;
+            milestone.textContent = chapter.milestone;
+
+            visualNumber.textContent = chapter.number;
+            visualCode.textContent = chapter.code;
+
+            // Atualiza o indicador de progresso
+            progressBar.style.width =
+                `${((index + 1) / chapters.length) * 100}%`;
+
+            progressText.textContent =
+                `CAPÍTULO ${chapter.number} DE ${String(chapters.length).padStart(2, "0")}`;
+
+            // O último capítulo leva aos projetos
+            nextButton.querySelector("span:first-child").textContent =
+                index === chapters.length - 1
+                    ? "EXPLORAR PROJETOS"
+                    : "PRÓXIMO CAPÍTULO";
+
+            // Reinicia a animação
+            screen.classList.remove("is-transitioning");
+
+            if (animate && !reducedMotion.matches) {
+
+                void screen.offsetWidth;
+
+                screen.classList.add("is-transitioning");
+
+            }
+
+        }
+
+
+        /* ========================================
+        CLIQUES NOS CAPÍTULOS
+        ======================================== */
+
+        chapterButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                selectChapter(button.dataset.chapter);
+
+            });
+
+        });
+
+
+        /* ========================================
+        NAVEGAÇÃO PELO TECLADO
+        ======================================== */
+
+        root.addEventListener("keydown", event => {
+
+            const keys = [
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight"
+            ];
+
+            if (!keys.includes(event.key)) return;
+
+            const current = chapterButtons.indexOf(
+                document.activeElement
+            );
+
+            if (current < 0) return;
+
+            event.preventDefault();
+
+            const direction = (
+                event.key === "ArrowDown" ||
+                event.key === "ArrowRight"
+            ) ? 1 : -1;
+
+            const nextIndex = (
+                current +
+                direction +
+                chapterButtons.length
+            ) % chapterButtons.length;
+
+            chapterButtons[nextIndex].focus();
+
+            selectChapter(
+                chapterButtons[nextIndex].dataset.chapter
+            );
+
+        });
+
+
+        /* ========================================
+        BOTÃO PRÓXIMO CAPÍTULO
+        ======================================== */
+
+        nextButton.addEventListener("click", () => {
+
+            // No último capítulo, abre a seção Projetos
+            if (currentIndex === chapters.length - 1) {
+
+                openScreen("projetos");
+
+                menuButtons.find(
+                    button => button.dataset.screen === "projetos"
+                )?.focus({ preventScroll: true });
+
+                return;
+            }
+
+            // Avança para o próximo capítulo
+            selectChapter(
+                chapters[currentIndex + 1].id
+            );
+
+            chapterButtons[currentIndex].focus({
+                preventScroll: true
+            });
+
+        });
+
+
+        /* ========================================
+        CAPÍTULO INICIAL
+        ======================================== */
+
+        selectChapter("inicio", false);
+
+    };
+
+    /* ========================================
+    9. ALÉM DO CÓDIGO - PLAYER PROFILE
+    ======================================== */
+
+    function initializeOffCode() {
+
+        const root = document.getElementById("offcodeRoot");
+
+        if (!root) {
+            console.warn(
+                "PG Reality: perfil do jogador não encontrado."
+            );
+            return;
+        }
+
+        const options = document.getElementById("offcodeOptions");
+
+        const buttons = [
+            ...root.querySelectorAll(
+                ".offcode-option[data-interest]"
+            )
+        ];
+
+        const detail = document.getElementById("offcodeDetail");
+
+        const indexLabel = document.getElementById("offcodeIndex");
+        const visualNumber = document.getElementById("offcodeVisualNumber");
+        const visualLabel = document.getElementById("offcodeVisualLabel");
+
+        const category = document.getElementById("offcodeCategory");
+        const title = document.getElementById("offcodeTitle");
+        const description = document.getElementById("offcodeDescription");
+
+        const highlights = document.getElementById("offcodeHighlights");
+
+        const nextButton = document.getElementById("offcodeNext");
+        const counter = document.getElementById("offcodeCounter");
+
+        const required = [
+            options, detail, indexLabel, visualNumber,
+            visualLabel, category, title, description,
+            highlights, nextButton, counter
+        ];
+
+        if (
+            !buttons.length ||
+            required.some(element => !element)
+        ) {
+            console.warn(
+                "PG Reality: elementos do perfil incompletos."
+            );
+            return;
+        }
+
+
+        /* ========================================
+        BANCO DE DADOS PESSOAIS
+        ======================================== */
+
+        const interests = {
+
+            games: {
+                category: "DIGITAL WORLDS",
+                title: "Universos que me inspiram",
+
+                description:
+                    "Os videogames fazem parte da minha vida " +
+                    "desde cedo. Gosto de jogar tanto no PC " +
+                    "quanto no PlayStation 5, explorando " +
+                    "mundos abertos, jogos competitivos " +
+                    "e grandes histórias.",
+
+                highlights: [
+                    "Minecraft",
+                    "GTA V",
+                    "League of Legends",
+                    "Rust",
+                    "God of War"
+                ],
+
+                visual: "GAMING"
+            },
+
+            trofeus: {
+                category: "ACHIEVEMENT SYSTEM",
+                title: "A busca pelas platinas",
+
+                description:
+                    "Para mim, terminar um jogo é apenas " +
+                    "parte da experiência. Gosto de completar " +
+                    "desafios, conquistar troféus e explorar " +
+                    "ao máximo os jogos que me interessam.",
+
+                highlights: [
+                    "Spider-Man Remastered",
+                    "Spider-Man: Miles Morales",
+                    "God of War Ragnarök",
+                    "Ghost of Tsushima",
+                    "Astro Bot"
+                ],
+
+                visual: "TROPHY HUNTER"
+            },
+
+            futebol: {
+                category: "FOOTBALL ARCHIVE",
+                title: "Corinthians e futebol",
+
+                description:
+                    "Sou apaixonado por futebol e torcedor " +
+                    "do Corinthians. É um dos meus interesses " +
+                    "fora da tecnologia e dos videogames.",
+
+                highlights: [
+                    "Corinthians",
+                    "Futebol",
+                    "Torcida"
+                ],
+
+                visual: "FOOTBALL"
+            },
+
+            carros: {
+                category: "AUTOMOTIVE INTEREST",
+                title: "Paixão por carros",
+
+                description:
+                    "Carros também fazem parte dos meus " +
+                    "interesses pessoais. Gosto de acompanhar " +
+                    "esse universo e conhecer diferentes " +
+                    "modelos e tecnologias.",
+
+                highlights: [
+                    "Carros",
+                    "Design automotivo",
+                    "Tecnologia"
+                ],
+
+                visual: "AUTOMOTIVE"
+            },
+
+            pessoal: {
+                category: "OFFLINE LIFE",
+                title: "Além das telas",
+
+                description:
+                    "Fora do computador, valorizo os momentos " +
+                    "com as pessoas que fazem parte da minha " +
+                    "vida. Tenho um relacionamento de longa " +
+                    "data e uma cachorrinha vira-lata que " +
+                    "considero parte da família.",
+
+                highlights: [
+                    "Família",
+                    "Relacionamento",
+                    "Minha cachorrinha"
+                ],
+
+                visual: "REAL LIFE"
+            }
+
+        };
+
+
+        /* ========================================
+        CONTROLE DA SELEÇÃO
+        ======================================== */
+
+        const order = buttons.map(
+            button => button.dataset.interest
+        );
+
+        let currentIndex = 0;
+
+
+        function selectInterest(id, animate = true) {
+
+            const interest = interests[id];
+
+            if (!interest) return;
+
+            const index = order.indexOf(id);
+
+            if (index === -1) return;
+
+            currentIndex = index;
+
+            // Atualiza seleção
+            buttons.forEach(button => {
+
+                const selected =
+                    button.dataset.interest === id;
+
+                button.classList.toggle(
+                    "is-selected",
+                    selected
+                );
+
+                button.setAttribute(
+                    "aria-pressed",
+                    String(selected)
+                );
+
+            });
+
+            // Atualiza dados
+            detail.dataset.interest = id;
+
+            const number = String(index + 1).padStart(2, "0");
+            const total = String(order.length).padStart(2, "0");
+
+            indexLabel.textContent =
+                `PROFILE DATA // ${number}`;
+
+            visualNumber.textContent = number;
+            visualLabel.textContent = interest.visual;
+
+            category.textContent = interest.category;
+            title.textContent = interest.title;
+            description.textContent = interest.description;
+
+            counter.textContent = `${number} / ${total}`;
+
+            // Atualiza destaques
+            const fragment = document.createDocumentFragment();
+
+            interest.highlights.forEach(item => {
+
+                const span = document.createElement("span");
+
+                span.textContent = item;
+
+                fragment.appendChild(span);
+
+            });
+
+            highlights.replaceChildren(fragment);
+
+            // Reinicia animação
+            detail.classList.remove("is-switching");
+
+            if (animate && !reducedMotion.matches) {
+
+                void detail.offsetWidth;
+
+                detail.classList.add("is-switching");
+
+            }
+
+        }
+
+
+        /* ========================================
+        CLIQUES NAS CATEGORIAS
+        ======================================== */
+
+        buttons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                selectInterest(
+                    button.dataset.interest
+                );
+
+            });
+
+        });
+
+
+        /* ========================================
+        PRÓXIMO INTERESSE
+        ======================================== */
+
+        nextButton.addEventListener("click", () => {
+
+            const nextIndex = (
+                currentIndex + 1
+            ) % order.length;
+
+            selectInterest(order[nextIndex]);
+
+        });
+
+
+        /* ========================================
+        NAVEGAÇÃO PELO TECLADO
+        ======================================== */
+
+        options.addEventListener("keydown", event => {
+
+            const keys = [
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight"
+            ];
+
+            if (!keys.includes(event.key)) return;
+
+            const current = buttons.indexOf(
+                document.activeElement
+            );
+
+            if (current === -1) return;
+
+            event.preventDefault();
+
+            const direction = (
+                event.key === "ArrowDown" ||
+                event.key === "ArrowRight"
+            ) ? 1 : -1;
+
+            const nextIndex = (
+                current + direction + buttons.length
+            ) % buttons.length;
+
+            buttons[nextIndex].focus();
+
+            selectInterest(
+                buttons[nextIndex].dataset.interest
+            );
+
+        });
+
+
+    /* ========================================
+       ESTADO INICIAL
+    ======================================== */
+
+    selectInterest("games", false);
+
+}
     
 
 
@@ -1003,6 +1652,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeMissions();
 
     initializeSkillTree();
+
+    initializeStory();
+
+    initializeOffCode();
 
     startIntro();
 
