@@ -3767,3 +3767,30 @@ body[data-screen="contato"] .scene__grid {
         height: 52px;
     }
 }
+
+/* ========================================
+   PLAYSTATION - AJUSTES FINAIS
+======================================== */
+
+.offcode-detail:not([data-interest="trofeus"])
+.psn-trophies {
+    display: none;
+}
+
+.psn-trophies__level {
+    margin-top: 18px;
+    padding-top: 14px;
+
+    border-top: 1px solid rgba(120, 207, 255, 0.18);
+
+    color: #91adc3;
+    font-family: Consolas, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.psn-trophies__level strong {
+    margin-left: 8px;
+    color: #78cfff;
+    font-size: 1rem;
+}

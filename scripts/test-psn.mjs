@@ -1,5 +1,3 @@
-"use strict";
-
 import {
     exchangeNpssoForAccessCode,
     exchangeAccessCodeForAuthTokens,
@@ -10,20 +8,15 @@ import {
 async function main() {
 
     /* ========================================
-       1. VALIDAR NPSSO
+       1. VALIDAR TOKEN NPSSO
     ======================================== */
 
     const npsso = (process.env.PSN_NPSSO ?? "").trim();
 
-    if (!npsso) {
-        throw new Error(
-            "Token PSN_NPSSO não configurado."
-        );
-    }
-
     if (!/^[A-Za-z0-9_-]{64}$/.test(npsso)) {
         throw new Error(
-            "Formato NPSSO inválido."
+            "NPSSO ausente ou inválido. " +
+            "Informe os 64 caracteres do token."
         );
     }
 
@@ -43,69 +36,49 @@ async function main() {
     console.log("ETAPA 1: Concluída.");
 
 
-    console.log("\nETAPA 2: Obtendo tokens...");
+    console.log("\nETAPA 2: Solicitando tokens...");
 
     const tokens =
         await exchangeAccessCodeForAuthTokens(accessCode);
+
+    if (!tokens.accessToken) {
+        throw new Error("Token de acesso não recebido.");
+    }
+
+    // CORREÇÃO DO ERRO ANTERIOR
+    const authorization = {
+        accessToken: tokens.accessToken
+    };
 
     console.log("ETAPA 2: Concluída.");
 
 
     /* ========================================
-       3. AUTORIZAÇÃO
-    ======================================== */
-
-    const authorization = {
-        accessToken: tokens.accessToken
-    };
-
-    console.log("\nAutorização configurada.");
-
-
-    /* ========================================
-       4. CONSULTAR PERFIL PSN
+       3. CONSULTAR PERFIL
     ======================================== */
 
     console.log("\nETAPA 3: Consultando troféus...");
 
-    const profile =
-        await getUserTrophyProfileSummary(
-            authorization,
-            "me"
-        );
+    const profile = await getUserTrophyProfileSummary(
+        authorization,
+        "me"
+    );
 
     console.log("ETAPA 3: Concluída.");
 
-    console.log("\n===== PERFIL PLAYSTATION =====");
-
     console.log(
-        "Nível:",
+        "Nível PSN:",
         profile.trophyLevel
     );
 
     console.log(
-        "Platina:",
+        "Total de platinas:",
         profile.earnedTrophies?.platinum ?? 0
-    );
-
-    console.log(
-        "Ouro:",
-        profile.earnedTrophies?.gold ?? 0
-    );
-
-    console.log(
-        "Prata:",
-        profile.earnedTrophies?.silver ?? 0
-    );
-
-    console.log(
-        "Bronze:",
-        profile.earnedTrophies?.bronze ?? 0
     );
 
 
     /* ========================================
-       5. CONSULTAR JOGOS
+       4. CONSULTAR JOGOS
     ======================================== */
 
     console.log("\nETAPA 4: Consultando jogos...");
@@ -113,34 +86,24 @@ async function main() {
     const response = await getUserTitles(
         authorization,
         "me",
-        {
-            limit: 10,
-            offset: 0
-        }
+        { limit: 5 }
     );
 
     console.log("ETAPA 4: Concluída.");
 
-    console.log("\n===== JOGOS ENCONTRADOS =====");
+    console.log("\nJOGOS ENCONTRADOS:");
 
-    const games = response.trophyTitles ?? [];
-
-    games.forEach((game, index) => {
-
-        const platinum =
-            game.earnedTrophies?.platinum ?? 0;
+    for (const game of response.trophyTitles ?? []) {
 
         console.log(
-            `${index + 1}. ${game.trophyTitleName}`
+            game.trophyTitleName,
+            "| Platinas:",
+            game.earnedTrophies?.platinum ?? 0
         );
 
-        console.log(
-            `   Platina: ${platinum > 0 ? "SIM" : "NÃO"}`
-        );
+    }
 
-    });
-
-    console.log("\n===== TESTE FINALIZADO =====");
+    console.log("\nTESTE FINALIZADO COM SUCESSO!");
 
 }
 
@@ -153,19 +116,11 @@ main().catch(error => {
 
     console.error("\nERRO NA INTEGRAÇÃO PSN");
 
-    console.error(
-        "Mensagem:",
-        error.message
-    );
+    console.error("Mensagem:", error.message);
 
     console.error(
         "Código:",
         error.cause?.code ?? "Não informado"
-    );
-
-    console.error(
-        "Detalhe:",
-        error.cause?.message ?? "Não informado"
     );
 
     process.exitCode = 1;

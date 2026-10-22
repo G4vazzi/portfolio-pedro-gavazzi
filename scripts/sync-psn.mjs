@@ -1,92 +1,117 @@
+"use strict";
+
 import {
     exchangeNpssoForAccessCode,
     exchangeAccessCodeForAuthTokens,
+    getUserTrophyProfileSummary,
     getUserTitles,
-    getUserTrophiesEarnedForTitle,
-    getUserTrophyProfileSummary
+    getUserTrophiesEarnedForTitle
 } from "psn-api";
 
 import { mkdir, writeFile } from "node:fs/promises";
 
-const npsso = process.env.PSN_NPSSO;
 
-if (!npsso) {
-    throw new Error("Configure o segredo PSN_NPSSO.");
+/* ========================================
+   1. AUTENTICAÇÃO PSN
+======================================== */
+
+async function authenticate() {
+
+    const npsso = (process.env.PSN_NPSSO ?? "").trim();
+
+    if (!/^[A-Za-z0-9_-]{64}$/.test(npsso)) {
+        throw new Error("NPSSO ausente ou inválido.");
+    }
+
+    console.log("Autenticando na PlayStation...");
+
+    const accessCode =
+        await exchangeNpssoForAccessCode(npsso);
+
+    const tokens =
+        await exchangeAccessCodeForAuthTokens(accessCode);
+
+    if (!tokens.accessToken) {
+        throw new Error("Token de acesso não recebido.");
+    }
+
+    console.log("Autenticação concluída.");
+
+    return {
+        accessToken: tokens.accessToken
+    };
 }
 
-// Autenticação feita apenas no ambiente privado.
-const accessCode = await exchangeNpssoForAccessCode(npsso);
 
-const tokens = await exchangeAccessCodeForAuthTokens(
-    accessCode
-);
+/* ========================================
+   2. CONSULTAR TODOS OS JOGOS
+======================================== */
 
-const authorization = {
-    accessToken: tokens.accessToken
-};
+async function getAllGames(authorization) {
 
-// Total de platinas.
-const summary = await getUserTrophyProfileSummary(
-    authorization,
-    "me"
-);
+    const games = [];
+    const limit = 200;
 
-const platinumCount =
-    summary.earnedTrophies?.platinum ?? 0;
-
-// Busca a lista completa de jogos.
-const titles = [];
-
-let offset = 0;
-let total = Infinity;
-
-while (offset < total) {
-
-    const response = await getUserTitles(
-        authorization,
-        "me",
-        { limit: 200, offset }
-    );
-
-    const page = response.trophyTitles ?? [];
-
-    if (!page.length) break;
-
-    titles.push(...page);
-
-    offset += page.length;
-
-    total = response.totalItemCount ?? offset;
-}
-
-// Seleciona jogos com platina.
-const candidates = titles
-    .filter(game => Number(game.earnedTrophies?.platinum) > 0)
-    .sort((a, b) =>
-        Date.parse(b.lastUpdatedDateTime || 0) -
-        Date.parse(a.lastUpdatedDateTime || 0)
-    );
-
-// Localiza a data real da platina em cada jogo.
-async function getPlatinumDate(game) {
-
-    let trophyOffset = 0;
+    let offset = 0;
 
     while (true) {
 
-        const result = await getUserTrophiesEarnedForTitle(
+        const response = await getUserTitles(
             authorization,
             "me",
-            game.npCommunicationId,
-            "default",
-            {
-                npServiceName: game.npServiceName,
-                limit: 100,
-                offset: trophyOffset
-            }
+            { limit, offset }
         );
 
-        const trophies = result.trophies ?? [];
+        const page = response.trophyTitles ?? [];
+
+        if (!page.length) break;
+
+        games.push(...page);
+        offset += page.length;
+
+        if (
+            offset >= response.totalItemCount ||
+            page.length < limit
+        ) {
+            break;
+        }
+    }
+
+    return games;
+}
+
+
+/* ========================================
+   3. LOCALIZAR DATA DA PLATINA
+======================================== */
+
+async function getPlatinumDate(authorization, game) {
+
+    // Jogos PS4, PS3 e Vita usam "trophy".
+    // Jogos PS5 usam "trophy2".
+    const service = game.npServiceName ||
+        (game.trophyTitlePlatform?.includes("PS5")
+            ? "trophy2"
+            : "trophy");
+
+    let offset = 0;
+
+    while (true) {
+
+        const response =
+            await getUserTrophiesEarnedForTitle(
+                authorization,
+                "me",
+                game.npCommunicationId,
+                "default",
+                {
+                    npServiceName: service,
+                    limit: 100,
+                    offset
+                }
+            );
+
+        const trophies = response.trophies ?? [];
 
         const platinum = trophies.find(trophy =>
             trophy.trophyType === "platinum" &&
@@ -98,74 +123,149 @@ async function getPlatinumDate(game) {
             return platinum.earnedDateTime;
         }
 
+        const next = response.nextOffset;
+
         if (
-            typeof result.nextOffset !== "number" ||
-            result.nextOffset <= trophyOffset
+            !Number.isInteger(next) ||
+            next <= offset
         ) {
-            return null;
+            break;
         }
 
-        trophyOffset = result.nextOffset;
+        offset = next;
     }
+
+    return null;
 }
 
-const platinums = [];
 
-for (const game of candidates) {
+/* ========================================
+   4. SINCRONIZAR CONQUISTAS
+======================================== */
 
-    // Só para quando os jogos restantes não puderem
-    // conter uma platina mais recente que a quinta.
-    if (
-        platinums.length >= 5 &&
-        Date.parse(game.lastUpdatedDateTime) <
-        Date.parse(platinums[4].earnedAt)
-    ) {
-        break;
+async function main() {
+
+    const authorization = await authenticate();
+
+    console.log("\nConsultando seu perfil...");
+
+    const profile =
+        await getUserTrophyProfileSummary(
+            authorization,
+            "me"
+        );
+
+    const platinumCount =
+        Number(profile.earnedTrophies?.platinum ?? 0);
+
+    const trophyLevel =
+        Number(profile.trophyLevel);
+
+    console.log("Nível PSN:", trophyLevel);
+    console.log("Total de platinas:", platinumCount);
+
+    console.log("\nConsultando biblioteca de jogos...");
+
+    const games = await getAllGames(authorization);
+
+    console.log("Jogos encontrados:", games.length);
+
+    const completedGames = games.filter(
+        game => Number(game.earnedTrophies?.platinum ?? 0) > 0
+    );
+
+    console.log(
+        "Jogos com platina:",
+        completedGames.length
+    );
+
+    const platinums = [];
+
+    for (const game of completedGames) {
+
+        console.log(
+            "Verificando:",
+            game.trophyTitleName
+        );
+
+        const earnedAt =
+            await getPlatinumDate(authorization, game);
+
+        if (!earnedAt || Number.isNaN(Date.parse(earnedAt))) {
+            throw new Error(
+                `Não foi possível identificar a data da platina: ` +
+                game.trophyTitleName
+            );
+        }
+
+        platinums.push({
+            name: game.trophyTitleName,
+            platform: game.trophyTitlePlatform,
+            iconUrl: game.trophyTitleIconUrl ?? "",
+            earnedAt
+        });
     }
 
-    const earnedAt = await getPlatinumDate(game);
-
-    if (!earnedAt) continue;
-
-    platinums.push({
-        name: game.trophyTitleName,
-        platform: game.trophyTitlePlatform,
-        iconUrl: game.trophyTitleIconUrl,
-        earnedAt
-    });
-
+    // Ordenar pela data real da conquista.
     platinums.sort(
         (a, b) =>
-            Date.parse(b.earnedAt) - Date.parse(a.earnedAt)
+            Date.parse(b.earnedAt) -
+            Date.parse(a.earnedAt)
     );
 
-    if (platinums.length > 5) {
-        platinums.pop();
+    if (platinums.length < Math.min(5, platinumCount)) {
+        throw new Error(
+            "Foram encontradas menos platinas que o esperado. " +
+            "O arquivo existente não será sobrescrito."
+        );
     }
-}
 
-if (platinumCount > 0 && platinums.length === 0) {
-    throw new Error(
-        "Nenhuma data de platina encontrada. Dados antigos preservados."
+    const latestPlatinums = platinums.slice(0, 5);
+
+    /* ========================================
+       5. GERAR ARQUIVO JSON
+    ======================================== */
+
+    const output = {
+        onlineId: "",
+        profileUrl: "",
+        trophyLevel,
+        platinumCount,
+        updatedAt: new Date().toISOString(),
+        platinums: latestPlatinums
+    };
+
+    await mkdir("data", { recursive: true });
+
+    await writeFile(
+        "data/psn-trophies.json",
+        JSON.stringify(output, null, 2),
+        "utf8"
+    );
+
+    console.log("\n================================");
+    console.log("SINCRONIZAÇÃO CONCLUÍDA");
+    console.log("================================");
+
+    for (const trophy of latestPlatinums) {
+        console.log(
+            trophy.name,
+            "-",
+            new Date(trophy.earnedAt)
+                .toLocaleDateString("pt-BR")
+        );
+    }
+
+    console.log(
+        "\nArquivo gerado: data/psn-trophies.json"
     );
 }
 
-const output = {
-    onlineId: process.env.PSN_ONLINE_ID || "",
-    profileUrl: process.env.PSN_PROFILE_URL || "",
-    updatedAt: new Date().toISOString(),
-    platinumCount,
-    platinums
-};
 
-await mkdir("data", { recursive: true });
+main().catch(error => {
 
-await writeFile(
-    "data/psn-trophies.json",
-    JSON.stringify(output, null, 2),
-    "utf8"
-);
+    console.error("\nERRO NA SINCRONIZAÇÃO");
+    console.error(error.message);
 
-console.log(
-    `Sincronização concluída: ${platinums.length} platinas recentes.`
-);
+    process.exitCode = 1;
+});

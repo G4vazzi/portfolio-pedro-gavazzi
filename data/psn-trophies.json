@@ -1,7 +1,39 @@
 {
   "onlineId": "",
   "profileUrl": "",
-  "updatedAt": null,
-  "platinumCount": 0,
-  "platinums": []
+  "trophyLevel": 222,
+  "platinumCount": 14,
+  "updatedAt": "2026-10-22T12:50:34.438Z",
+  "platinums": [
+    {
+      "name": "Uncharted: Drake’s Fortune™ Remastered",
+      "platform": "PS4",
+      "iconUrl": "https://image.api.playstation.com/trophy/np/NPWR09798_00_0004C451BA0D520B43DBB2C20D0EB0B47AEEB9FEAF/B4203E044C57963E48475359B3DF9E0C5E3885FC.PNG",
+      "earnedAt": "2026-10-20T18:36:59Z"
+    },
+    {
+      "name": "Ratchet & Clank: Rift Apart",
+      "platform": "PS5",
+      "iconUrl": "https://psnobj.prod.dl.playstation.net/psnobj/NPWR20842_00/693b98ed-1b2b-4111-abcd-39ad740aa941.png",
+      "earnedAt": "2026-09-02T20:19:34Z"
+    },
+    {
+      "name": "Palworld",
+      "platform": "PS5",
+      "iconUrl": "https://psnobj.prod.dl.playstation.net/psnobj/NPWR44056_00/b7252125-511d-4149-a42d-2a1c06fe204b.png",
+      "earnedAt": "2026-08-29T04:52:59Z"
+    },
+    {
+      "name": "Lake",
+      "platform": "PS5",
+      "iconUrl": "https://psnobj.prod.dl.playstation.net/psnobj/NPWR28611_00/91c344a1-e96d-4f77-86ca-4e7cc5548352.png",
+      "earnedAt": "2026-07-22T00:20:48Z"
+    },
+    {
+      "name": "Marvel's Spider-Man 2",
+      "platform": "PS5,PSPC",
+      "iconUrl": "https://psnobj.prod.dl.playstation.net/psnobj/NPWR23378_00/2ef8f325-47bd-4e1d-b731-cb8647b06a70.png",
+      "earnedAt": "2026-07-06T15:10:12Z"
+    }
+  ]
 }
