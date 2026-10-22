@@ -15,7 +15,6 @@ projetos, habilidades e experiências na área de tecnologia.
 
 - LanchoneteWEB
 - SpacoContabil
-- Dashboard Financeiro
 - Análise de Crédito
 
 ## Contato

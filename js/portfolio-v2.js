@@ -389,38 +389,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             page: "projects/lanchoneteweb.html",
 
-            mockupDomain: "FABULOSO // FOOD SYSTEM",
-            mockupTitle: "Fabuloso Hot Dog",
+            mockupDomain: "lanchoneteweb.dev",
+            mockupTitle: "Hot Dog Lanchonete",
             mockupCaption: "Faça seu pedido online",
-
-            image: ""
-        },
-
-        dashboard: {
-            number: "03",
-            name: "Dashboard Financeiro",
-
-            description:
-                "Painel para acompanhar contratos, " +
-                "movimentações e indicadores financeiros " +
-                "das operações.",
-
-            technologies: [
-                "Excel", "Power Query",
-                "Power Pivot", "VBA"
-            ],
-
-            page: "projects/dashboard-financeiro.html",
-
-            mockupDomain: "FINANCIAL // ANALYTICS",
-            mockupTitle: "Dashboard Financeiro",
-            mockupCaption: "Indicadores e análises financeiras",
 
             image: ""
         }
 
     };
-
 
     /* ========================================
        6. SISTEMA DE MISSÕES
@@ -791,8 +767,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 usage:
                     "Indicadores financeiros, tabelas estruturadas " +
                     "e acompanhamento de operações.",
-                projects: ["Dashboard Financeiro"],
-                href: "projects/dashboard-financeiro.html",
+                projects: ["Controle financeiro em Excel"],
+                href: "",
                 external: false
             },
 
@@ -805,8 +781,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 usage:
                     "Importação, limpeza e consolidação " +
                     "das tabelas usadas nos indicadores.",
-                projects: ["Dashboard Financeiro"],
-                href: "projects/dashboard-financeiro.html",
+                projects: ["Tratamento de dados no Excel"],
+                href: "",
                 external: false
             },
 
@@ -819,8 +795,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 usage:
                     "Construção de modelos de dados " +
                     "e métricas para painéis financeiros.",
-                projects: ["Dashboard Financeiro"],
-                href: "projects/dashboard-financeiro.html",
+                projects: ["Modelagem de dados no Excel"],
+                href: "",
                 external: false
             },
 
@@ -834,7 +810,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "Macros para cadastro, geração de parcelas " +
                     "e rotinas financeiras.",
                 projects: ["Automações em Excel"],
-                href: "projects/dashboard-financeiro.html",
+                href: "",
                 external: false
             },
 
@@ -904,7 +880,9 @@ document.addEventListener("DOMContentLoaded", () => {
             projects.replaceChildren(fragment);
 
             // Atualiza o link
+            link.hidden = !skill.href;
             link.href = skill.href;
+
 
             linkLabel.textContent = skill.external
                 ? "VER REPOSITÓRIOS"
@@ -1120,7 +1098,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 description:
                     "Hoje aplico o que aprendo em projetos " +
                     "como SpacoContabil, LanchoneteWeb e " +
-                    "Dashboard Financeiro, desenvolvendo " +
+                    "PG Reality, desenvolvendo " +
                     "soluções web, ferramentas e automações.",
 
                 milestone: "Projetos reais e evolução constante",
@@ -1380,13 +1358,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "mundos abertos, jogos competitivos " +
                     "e grandes histórias.",
 
-                highlights: [
-                    "Minecraft",
-                    "GTA V",
-                    "League of Legends",
-                    "Rust",
-                    "God of War"
-                ],
+                highlights: [],
 
                 visual: "GAMING"
             },
@@ -1401,14 +1373,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     "desafios, conquistar troféus e explorar " +
                     "ao máximo os jogos que me interessam.",
 
-                highlights: [
-                    "Spider-Man Remastered",
-                    "Spider-Man: Miles Morales",
-                    "God of War Ragnarök",
-                    "Ghost of Tsushima",
-                    "Astro Bot"
-                ],
-
+                highlights: [],
+                    
                 visual: "TROPHY HUNTER"
             },
 
@@ -1448,27 +1414,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 visual: "AUTOMOTIVE"
             },
-
-            pessoal: {
-                category: "OFFLINE LIFE",
-                title: "Além das telas",
-
-                description:
-                    "Fora do computador, valorizo os momentos " +
-                    "com as pessoas que fazem parte da minha " +
-                    "vida. Tenho um relacionamento de longa " +
-                    "data e uma cachorrinha vira-lata que " +
-                    "considero parte da família.",
-
-                highlights: [
-                    "Família",
-                    "Relacionamento",
-                    "Minha cachorrinha"
-                ],
-
-                visual: "REAL LIFE"
-            }
-
+            
         };
 
 

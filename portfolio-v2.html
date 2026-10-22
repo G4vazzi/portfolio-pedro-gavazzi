@@ -18,6 +18,7 @@
 
     <script src="js/portfolio-v2.js" defer></script>
     <script src="js/psn-trophies.js" defer></script>
+    <script src="js/game-libraries.js" defer></script>
 </head>
 
 <body>
@@ -306,7 +307,7 @@
                         hidden>
 
                     <span class="panel__eyebrow">
-                        MISSION DATABASE // 03 ENTRIES
+                        MISSION DATABASE // 02 ENTRIES
                     </span>
 
                     <h2 class="panel__title">
@@ -363,28 +364,6 @@
                                 <span class="project-choice__info">
                                     <strong>LanchoneteWeb</strong>
                                     <small>Flask · SQLite</small>
-                                </span>
-
-                                <span class="project-choice__arrow">
-                                    ›
-                                </span>
-
-                            </button>
-
-                            <!-- PROJETO 03 -->
-                            <button
-                                class="project-choice"
-                                type="button"
-                                data-project="dashboard"
-                                aria-pressed="false">
-
-                                <span class="project-choice__number">
-                                    03
-                                </span>
-
-                                <span class="project-choice__info">
-                                    <strong>Dashboard Financeiro</strong>
-                                    <small>Excel · Power Query</small>
                                 </span>
 
                                 <span class="project-choice__arrow">
@@ -470,7 +449,7 @@
                                 <div class="project-detail__meta">
 
                                     <span id="projectIndex">
-                                        MISSION 01 / 03
+                                        MISSION 01 / 02
                                     </span>
 
                                     <span class="project-detail__status">
@@ -1011,19 +990,7 @@
 
                                 <span class="offcode-option__arrow">›</span>
                             </button>
-
-                            <button class="offcode-option"
-                                    type="button"
-                                    data-interest="pessoal"
-                                    aria-pressed="false">
-
-                                <span class="offcode-option__number">05</span>
-
-                                <span>VIDA PESSOAL</span>
-
-                                <span class="offcode-option__arrow">›</span>
-                            </button>
-
+                            
                         </div>
 
                         <!-- DETALHES DA CATEGORIA -->
@@ -1077,7 +1044,7 @@
                                     da minha vida.
                                 </p>
 
-                                <h4>DESTAQUES</h4>
+                                <h4 id="offcodeHighLightsTitle">DESTAQUES</h4>
 
                                 <div class="offcode-highlights"
                                     id="offcodeHighlights">
@@ -1085,6 +1052,120 @@
                                     <span>Minecraft</span>
                                     <span>God of War</span>
                                     <span>GTA V</span>
+
+                                </div>
+
+                                <!-- ========================================
+                                    BIBLIOTECAS DE JOGOS
+                                ======================================== -->
+
+                                <div class="game-libraries" id="gameLibraries">
+
+                                    <!-- PLAYSTATION -->
+                                    <section class="game-library">
+
+                                        <div class="game-library__header">
+
+                                            <div>
+                                                <span class="game-library__eyebrow">
+                                                    CONSOLE LIBRARY
+                                                </span>
+
+                                                <h4>PLAYSTATION LIBRARY</h4>
+
+                                                <small id="psnLibraryCount">
+                                                    — JOGOS
+                                                </small>
+                                            </div>
+
+                                            <div class="game-library__controls">
+
+                                                <button type="button"
+                                                        class="game-library__arrow"
+                                                        data-library-nav="psn"
+                                                        data-direction="-1"
+                                                        aria-label="Jogos anteriores da PlayStation"
+                                                        disabled>
+                                                    ‹
+                                                </button>
+
+                                                <button type="button"
+                                                        class="game-library__arrow"
+                                                        data-library-nav="psn"
+                                                        data-direction="1"
+                                                        aria-label="Próximos jogos da PlayStation"
+                                                        disabled>
+                                                    ›
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <p class="game-library__status" id="psnLibraryStatus">
+                                            Carregando biblioteca PlayStation...
+                                        </p>
+
+                                        <div class="game-library__track"
+                                            id="psnLibraryTrack"
+                                            tabindex="0"
+                                            aria-label="Jogos da PlayStation">
+                                        </div>
+
+                                    </section>
+
+                                    <!-- STEAM -->
+                                    <section class="game-library">
+
+                                        <div class="game-library__header">
+
+                                            <div>
+                                                <span class="game-library__eyebrow">
+                                                    PC GAMING
+                                                </span>
+
+                                                <h4>STEAM LIBRARY</h4>
+
+                                                <small id="steamLibraryCount">
+                                                    — JOGOS
+                                                </small>
+                                            </div>
+
+                                            <div class="game-library__controls">
+
+                                                <button type="button"
+                                                        class="game-library__arrow"
+                                                        data-library-nav="steam"
+                                                        data-direction="-1"
+                                                        aria-label="Jogos anteriores da Steam"
+                                                        disabled>
+                                                    ‹
+                                                </button>
+
+                                                <button type="button"
+                                                        class="game-library__arrow"
+                                                        data-library-nav="steam"
+                                                        data-direction="1"
+                                                        aria-label="Próximos jogos da Steam"
+                                                        disabled>
+                                                    ›
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <p class="game-library__status" id="steamLibraryStatus">
+                                            Biblioteca Steam em preparação.
+                                        </p>
+
+                                        <div class="game-library__track"
+                                            id="steamLibraryTrack"
+                                            tabindex="0"
+                                            aria-label="Jogos da Steam">
+                                        </div>
+
+                                    </section>
 
                                 </div>
 
@@ -1150,7 +1231,7 @@
                         </span>
 
                         <span id="offcodeCounter">
-                            01 / 05
+                            01 / 04
                         </span>
 
                     </div>

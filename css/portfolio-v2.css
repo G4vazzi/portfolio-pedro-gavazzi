@@ -3794,3 +3794,304 @@ body[data-screen="contato"] .scene__grid {
     color: #78cfff;
     font-size: 1rem;
 }
+
+/* ========================================
+   PLATINAS - OCULTAR DESTAQUES ANTIGOS
+======================================== */
+
+.offcode-detail[data-interest="trofeus"]
+#offcodeHighlights {
+    display: none;
+}
+
+.offcode-detail[data-interest="trofeus"]
+h4:has(+ #offcodeHighlights) {
+    display: none;
+}
+
+/* ========================================
+   PG REALITY - PREVIEW REAL DOS PROJETOS
+======================================== */
+
+/* Mantém a moldura azul e a perspectiva 3D */
+.project-art[data-project="spaco"] .project-art__mockup {
+    overflow: hidden;
+    background: #071321;
+}
+
+/* Área interna da janela */
+.project-art[data-project="spaco"] .project-art__window-body {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1719 / 895;
+    min-height: 0;
+
+    padding: 0;
+
+    background-color: #071321;
+    background-image: url("../img/projetos/spacocontabil-home.png");
+
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Esconde apenas a simulação antiga */
+.project-art[data-project="spaco"] .project-art__window-body > * {
+    display: none;
+}
+
+/* Remove a sobreposição de versões anteriores */
+.project-art[data-project="spaco"] .project-art__window-body::after {
+    content: none;
+}
+
+/* ========================================
+   PG REALITY - PREVIEW REAL DO LANCHONETEWEB
+======================================== */
+
+.project-art[data-project="lanchonete"] .project-art__mockup {
+    overflow: hidden;
+    background: #071321;
+}
+
+.project-art[data-project="lanchonete"] .project-art__window-body {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1719 / 895;
+    min-height: 0;
+
+    padding: 0;
+
+    background-color: #071321;
+    background-image: url("../img/projetos/lanchoneteweb-home.png");
+
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.project-art[data-project="lanchonete"] .project-art__window-body > * {
+    display: none;
+}
+
+.project-art[data-project="lanchonete"] .project-art__window-body::after {
+    content: none;
+}
+
+/* ========================================
+   PG REALITY - LIMPEZA ALÉM DO CÓDIGO
+======================================== */
+
+/* Ocultar destaques de Games e Platinas */
+
+.offcode-detail[data-interest="games"]
+#offcodeHighlightsTitle,
+
+.offcode-detail[data-interest="games"]
+#offcodeHighlights,
+
+.offcode-detail[data-interest="trofeus"]
+#offcodeHighlightsTitle,
+
+.offcode-detail[data-interest="trofeus"]
+#offcodeHighlights {
+    display: none;
+}
+
+/* ========================================
+   PG REALITY - GAME LIBRARIES
+======================================== */
+
+.game-libraries {
+    display: none;
+    margin-top: 26px;
+}
+
+.offcode-detail[data-interest="games"]
+.game-libraries {
+    display: block;
+}
+
+/* Cada biblioteca */
+
+.game-library {
+    min-width: 0;
+    margin-bottom: 24px;
+    padding: 15px;
+
+    background: rgba(7, 23, 41, 0.8);
+
+    border: 1px solid rgba(120, 207, 255, 0.2);
+}
+
+/* Cabeçalho */
+
+.game-library__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.game-library__eyebrow {
+    color: #78cfff;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    font-family: Consolas, monospace;
+}
+
+.game-library__header h4 {
+    margin: 8px 0;
+    color: #f0f7ff;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.game-library__header small {
+    color: #91adc3;
+    font-size: 0.65rem;
+}
+
+/* Navegação */
+
+.game-library__controls {
+    display: flex;
+    gap: 6px;
+}
+
+.game-library__arrow {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #345c78;
+    background: #112e49;
+    color: #78cfff;
+
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.game-library__arrow:hover:not(:disabled) {
+    border-color: #78cfff;
+    background: #285f91;
+}
+
+.game-library__arrow:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* Mensagens */
+
+.game-library__status {
+    margin: 13px 0 !important;
+    color: #91adc3;
+    font-size: 0.72rem !important;
+}
+
+/* Carrossel */
+
+.game-library__track {
+    display: flex;
+    gap: 12px;
+
+    min-width: 0;
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #285f91 transparent;
+
+    padding-bottom: 10px;
+}
+
+/* Card do jogo */
+
+.game-library__card {
+    flex: 0 0 138px;
+    min-width: 0;
+
+    overflow: hidden;
+    scroll-snap-align: start;
+
+    background: #0c243b;
+    border: 1px solid rgba(120, 207, 255, 0.18);
+
+    transition:
+        transform 0.25s,
+        border-color 0.25s;
+}
+
+.game-library__card:hover {
+    transform: translateY(-3px);
+    border-color: #78cfff;
+}
+
+/* Imagens */
+
+.game-library__image,
+.game-library__placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.game-library__image {
+    display: block;
+    object-fit: cover;
+}
+
+.game-library__placeholder {
+    display: grid;
+    place-items: center;
+
+    background: #163755;
+    color: #78cfff;
+    font-size: 2rem;
+}
+
+/* Informações */
+
+.game-library__info {
+    padding: 10px;
+}
+
+.game-library__name {
+    display: block;
+
+    color: #f0f7ff;
+    font-size: 0.72rem;
+    line-height: 1.45;
+
+    min-height: 42px;
+
+    overflow-wrap: anywhere;
+}
+
+.game-library__platforms {
+    display: block;
+    margin-top: 8px;
+
+    color: #78cfff;
+    font-size: 0.62rem;
+}
+
+/* Responsividade */
+
+@media (max-width: 480px) {
+
+    .game-library {
+        padding: 11px;
+    }
+
+    .game-library__card {
+        flex-basis: 122px;
+    }
+
+}
