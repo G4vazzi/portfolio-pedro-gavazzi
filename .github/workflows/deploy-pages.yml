@@ -1,0 +1,81 @@
+
+name: Publicar PG Reality
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+  workflow_run:
+    workflows:
+      - "Atualizar platinas PSN"
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pg-reality-pages
+  cancel-in-progress: false
+
+jobs:
+  preparar:
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Preparar arquivos do site
+        run: |
+          mkdir -p _site
+
+          rsync -a \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/node_modules/' \
+            --exclude='/scripts/' \
+            --exclude='/package.json' \
+            --exclude='/package-lock.json' \
+            --exclude='.env*' \
+            --exclude='/_site/' \
+            ./ _site/
+
+          cp portfolio-v2.html _site/index.html
+
+          touch _site/.nojekyll
+
+          test -f _site/index.html
+          test -f _site/data/psn-trophies.json
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar publicacao
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  publicar:
+    needs: preparar
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Publicar PG Reality
+        id: deployment
+        uses: actions/deploy-pages@v4
