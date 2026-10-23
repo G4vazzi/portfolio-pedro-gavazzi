@@ -62,10 +62,26 @@ document.addEventListener("DOMContentLoaded", () => {
             image.alt = `Imagem de ${game.name}`;
             image.loading = "lazy";
 
+            const fallbackUrl =
+                typeof game.fallbackImageUrl === "string" &&
+                game.fallbackImageUrl.startsWith("https://")
+                    ? game.fallbackImageUrl
+                    : null;
+                    
+            let fallbackTried = false;
+
             image.onerror = () => {
+                if (fallbackUrl && !fallbackTried) {
+
+                    fallbackTried = true;
+                    image.src = fallbackUrl;
+                    return;
+
+                }
+
                 image.replaceWith(fallback);
             };
-
+            
             card.appendChild(image);
 
         } else {
@@ -216,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ======================================== */
 
     loadLibrary("psn");
+    loadLibrary("steam");
 
     // Na próxima etapa, após criarmos steam-library.json,
     // ativaremos também:
