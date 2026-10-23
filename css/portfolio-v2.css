@@ -4105,3 +4105,180 @@ h4:has(+ #offcodeHighlights) {
     aspect-ratio: 3 / 4;
     object-fit: cover;
 }
+
+/* ========================================
+   PG REALITY - ARQUIBANCADA ALVINEGRA
+======================================== */
+
+.offcode-football {
+    display: none;
+    margin-top: 28px;
+}
+
+.offcode-detail[data-interest="futebol"]
+.offcode-football {
+    display: block;
+}
+
+/* Oculta os destaques antigos de Futebol */
+
+.offcode-detail[data-interest="futebol"]
+#offcodeHighlightsTitle,
+
+.offcode-detail[data-interest="futebol"]
+#offcodeHighlights {
+    display: none;
+}
+
+/* Cabeçalho */
+
+.football-heading > span {
+    color: #78cfff;
+    font-family: Consolas, monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+}
+
+.offcode-detail__body .football-heading h4 {
+    margin: 12px 0;
+    color: #f0f7ff;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.football-heading p {
+    margin-bottom: 18px;
+}
+
+/* Galeria */
+
+.football-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+/* Fotos */
+
+.football-memory {
+    --football-photo: none;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-width: 0;
+    min-height: 140px;
+    margin: 0;
+    padding: 14px;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(5, 15, 27, 0.2),
+            rgba(5, 15, 27, 0.85)
+        ),
+        var(--football-photo);
+
+    background-color: #19344c;
+    background-size: cover;
+    background-position: center;
+
+    border: 1px solid rgba(120, 207, 255, 0.25);
+
+    transition:
+        transform 0.3s,
+        border-color 0.3s;
+}
+
+.football-memory:hover {
+    transform: translateY(-3px);
+    border-color: #78cfff;
+}
+
+/* Foto principal */
+
+.football-memory--main {
+    grid-column: 1 / -1;
+    min-height: 230px;
+}
+
+/* Textos sobre as fotos */
+
+.football-memory__index {
+    color: #bce5ff;
+    font-family: Consolas, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 1px;
+}
+
+.football-memory figcaption {
+    color: #fff;
+    font-size: 0.83rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-shadow: 0 2px 8px #000;
+}
+
+/* Assinatura */
+
+.football-signature {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+
+    margin-top: 18px;
+    padding: 16px;
+
+    border-left: 3px solid #78cfff;
+    background: rgba(120, 207, 255, 0.06);
+}
+
+.football-signature span {
+    color: #91adc3;
+    font-family: Consolas, monospace;
+    font-size: 0.59rem;
+    letter-spacing: 1px;
+}
+
+.football-signature strong {
+    color: #f0f7ff;
+    font-size: 0.94rem;
+    letter-spacing: 1px;
+}
+
+/* Responsividade */
+
+@media (max-width: 480px) {
+
+    .football-memory--main {
+        min-height: 175px;
+    }
+
+    .football-memory {
+        min-height: 115px;
+        padding: 10px;
+    }
+
+    .football-memory figcaption {
+        font-size: 0.72rem;
+    }
+
+}
+
+/* FOTOS REAIS - CORINTHIANS */
+
+.football-memory--main {
+    --football-photo: url("../img/futebol/estadio-03.png");
+}
+
+.football-memory--second {
+    --football-photo: url("../img/futebol/estadio-06.png");
+}
+
+.football-memory--third {
+    --football-photo: url("../img/futebol/estadio-07.png");
+}

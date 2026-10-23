@@ -1379,21 +1379,19 @@ document.addEventListener("DOMContentLoaded", () => {
             },
 
             futebol: {
-                category: "FOOTBALL ARCHIVE",
-                title: "Corinthians e futebol",
+                category: "ARQUIBANCADA ALVINEGRA",
+                title: "Meu Corinthians",
 
                 description:
-                    "Sou apaixonado por futebol e torcedor " +
-                    "do Corinthians. É um dos meus interesses " +
-                    "fora da tecnologia e dos videogames.",
+                    "Ser corinthiano vai muito além dos 90 minutos. " +
+                    "É viver a emoção de cada jogo, acompanhar a " +
+                    "história do clube e sentir a energia da torcida. " +
+                    "O futebol é uma das minhas grandes paixões " +
+                    "fora da tecnologia.",
 
-                highlights: [
-                    "Corinthians",
-                    "Futebol",
-                    "Torcida"
-                ],
+                highlights: [],
 
-                visual: "FOOTBALL"
+                visual: "FIEL TORCIDA"
             },
 
             carros: {
