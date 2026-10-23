@@ -1,4 +1,3 @@
-
 name: Publicar PG Reality
 
 on:
@@ -8,11 +7,8 @@ on:
 
   workflow_dispatch:
 
-  workflow_run:
-    workflows:
-      - "Atualizar platinas PSN"
-    types:
-      - completed
+  schedule:
+    - cron: "17 10,22 * * *"
 
 permissions:
   contents: read
@@ -20,62 +16,69 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pg-reality-pages
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
-  preparar:
-    if: >-
-      github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
-
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Baixar projeto
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
         with:
-          ref: main
+          node-version: "24"
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Gerar dados PlayStation e Steam
+        env:
+          PSN_NPSSO: ${{ secrets.PSN_NPSSO }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+        run: |
+          node scripts/sync-psn.mjs > /dev/null
+          node scripts/sync-psn-library.mjs > /dev/null
+          node scripts/sync-steam-library.mjs > /dev/null
+          echo "Dados gerados para publicacao."
 
       - name: Preparar arquivos do site
         run: |
-          mkdir -p _site
-
-          rsync -a \
-            --exclude='/.git/' \
-            --exclude='/.github/' \
-            --exclude='/node_modules/' \
-            --exclude='/scripts/' \
-            --exclude='/package.json' \
-            --exclude='/package-lock.json' \
+          mkdir -p public
+          rsync -a ./ public/ \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='node_modules/' \
+            --exclude='scripts/' \
+            --exclude='img/futebol/' \
             --exclude='.env*' \
-            --exclude='/_site/' \
-            ./ _site/
-
-          cp portfolio-v2.html _site/index.html
-
-          touch _site/.nojekyll
-
-          test -f _site/index.html
-          test -f _site/data/psn-trophies.json
+            --exclude='package*.json' \
+            --exclude='.gitignore' \
+            --exclude='public/'
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Preparar publicacao
+      - name: Enviar arquivos para publicacao
         uses: actions/upload-pages-artifact@v4
         with:
-          path: _site
+          path: ./public
 
-  publicar:
-    needs: preparar
+  deploy:
     runs-on: ubuntu-latest
+    needs: build
 
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Publicar PG Reality
+      - name: Publicar site
         id: deployment
         uses: actions/deploy-pages@v4

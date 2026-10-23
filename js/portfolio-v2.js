@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "HTML", "CSS"
             ],
 
-            page: "projects/spacocontabil.html",
+            page: "https://spacocontabil.com.br",
 
             mockupDomain: "spacocontabil.com.br",
             mockupTitle: "SpacoContabil",
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "HTML", "CSS"
             ],
 
-            page: "projects/lanchoneteweb.html",
+            page: "https://github.com/G4vazzi/Projeto_LanchoneteWeb",
 
             mockupDomain: "lanchoneteweb.dev",
             mockupTitle: "Hot Dog Lanchonete",
@@ -1392,26 +1392,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 highlights: [],
 
                 visual: "FIEL TORCIDA"
-            },
-
-            carros: {
-                category: "AUTOMOTIVE INTEREST",
-                title: "Paixão por carros",
-
-                description:
-                    "Carros também fazem parte dos meus " +
-                    "interesses pessoais. Gosto de acompanhar " +
-                    "esse universo e conhecer diferentes " +
-                    "modelos e tecnologias.",
-
-                highlights: [
-                    "Carros",
-                    "Design automotivo",
-                    "Tecnologia"
-                ],
-
-                visual: "AUTOMOTIVE"
-            },
+            }
             
         };
 

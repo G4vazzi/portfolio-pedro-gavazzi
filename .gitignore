@@ -191,3 +191,19 @@ npm-error.log*
 .env
 .env.local
 .env.production
+
+# Credenciais
+.env
+.env.*
+!.env.example
+
+# Dados gerados pelas integrações
+/data/psn-trophies.json
+/data/psn-library.json
+/data/steam-library.json
+
+# Fotografias pessoais
+/img/futebol/
+
+# Arquivos locais e dependências
+/node_modules/

@@ -4272,13 +4272,172 @@ h4:has(+ #offcodeHighlights) {
 /* FOTOS REAIS - CORINTHIANS */
 
 .football-memory--main {
-    --football-photo: url("../img/futebol/estadio-03.png");
+    --football-photo: url("https://res.cloudinary.com/kyp7qvgw/image/upload/v1792777014/estadio-03.png");
 }
 
 .football-memory--second {
-    --football-photo: url("../img/futebol/estadio-06.png");
+    --football-photo: url("https://res.cloudinary.com/kyp7qvgw/image/upload/v1792777014/estadio-06.png");
 }
 
 .football-memory--third {
-    --football-photo: url("../img/futebol/estadio-07.png");
+    --football-photo: url("https://res.cloudinary.com/kyp7qvgw/image/upload/v1792777014/estadio-07.png");
+}
+
+/* ========================================
+   PG REALITY - PROFESSIONAL CONTACT
+======================================== */
+
+/* Organização */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    margin-top: 35px;
+}
+
+/* Cards */
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+
+    padding: 22px;
+    min-width: 0;
+
+    text-decoration: none;
+    color: #f0f7ff;
+
+    background: linear-gradient(
+        145deg,
+        rgba(21, 52, 80, 0.9),
+        rgba(7, 19, 33, 0.95)
+    );
+
+    border: 1px solid rgba(120, 207, 255, 0.22);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+    transform: translateY(-5px);
+
+    border-color: #78cfff;
+
+    box-shadow:
+        0 0 30px rgba(120, 207, 255, 0.12);
+}
+
+/* Cabeçalho */
+
+.contact-card__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-card__top > span:first-child {
+    color: #78cfff;
+
+    font-family: Consolas, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+}
+
+.contact-card__arrow {
+    color: #78cfff;
+    font-size: 1.2rem;
+}
+
+/* Conteúdo */
+
+.contact-card__body {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.contact-card__icon {
+    display: grid;
+    place-items: center;
+
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+
+    background: rgba(120, 207, 255, 0.1);
+    border: 1px solid rgba(120, 207, 255, 0.3);
+
+    color: #78cfff;
+
+    font-family: Consolas, monospace;
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.contact-card__body h3 {
+    margin: 0 0 7px;
+
+    color: #fff;
+    font-size: 1.12rem;
+}
+
+.contact-card__body p {
+    margin: 0;
+
+    color: #9bb6cb;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+/* Rodapé dos cards */
+
+.contact-card__footer {
+    margin-top: auto;
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(120, 207, 255, 0.15);
+
+    color: #78cfff;
+
+    font-family: Consolas, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.5px;
+    overflow-wrap: anywhere;
+}
+
+/* Status profissional */
+
+.contact-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 30px;
+
+    color: #91adc3;
+    font-family: Consolas, monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+}
+
+/* Responsividade */
+
+@media (max-width: 650px) {
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-card {
+        padding: 18px;
+    }
+
 }
