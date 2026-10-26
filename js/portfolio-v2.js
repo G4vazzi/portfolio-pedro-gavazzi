@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "HTML", "CSS"
             ],
 
-            page: "https://spacocontabil.com.br",
+            page: "https://www.spacocontabil.com.br/",
 
             mockupDomain: "spacocontabil.com.br",
             mockupTitle: "SpacoContabil",
