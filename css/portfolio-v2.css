@@ -4441,3 +4441,108 @@ h4:has(+ #offcodeHighlights) {
     }
 
 }
+
+/* ========================================
+   PG REALITY - NAVEGAÇÃO FIXA
+======================================== */
+
+/* DESKTOP */
+@media (min-width: 801px) {
+
+    .layout {
+        align-items: start;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 20px;
+
+        align-self: start;
+
+        max-height: calc(100vh - 40px);
+        max-height: calc(100dvh - 40px);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        scrollbar-width: thin;
+        scrollbar-color: #285f91 transparent;
+
+        z-index: 10;
+    }
+
+}
+
+/* TABLET E CELULAR */
+@media (max-width: 800px) {
+
+    .sidebar {
+        position: static;
+        overflow: visible;
+    }
+
+    /* Menu inferior flutuante */
+    .game-menu {
+        position: fixed;
+
+        left: 50%;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+
+        transform: translateX(-50%);
+
+        z-index: 1000;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+
+        width: calc(100% - 24px);
+        max-width: 720px;
+
+        padding: 9px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        background: rgba(5, 18, 34, 0.96);
+
+        border: 1px solid rgba(120, 207, 255, 0.35);
+
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        scrollbar-width: thin;
+    }
+
+    .game-menu__item {
+        flex: 0 0 auto;
+
+        width: auto;
+        min-height: 42px;
+
+        padding: 0 12px;
+        gap: 8px;
+
+        font-size: 0.67rem;
+        letter-spacing: 0.5px;
+
+        white-space: nowrap;
+    }
+
+    .game-menu__arrow {
+        display: none;
+    }
+
+    .game-menu__item.is-active {
+        transform: none;
+    }
+
+    /* Evita que o menu cubra o conteúdo final */
+    .app {
+        padding-bottom: 100px;
+    }
+
+}
