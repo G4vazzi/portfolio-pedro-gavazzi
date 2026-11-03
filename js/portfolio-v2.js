@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: ""
         },
 
-        emporiodamusicaai: {
+        emporio: {
             number: "03",
             name: "Empório da Música AI",
 
