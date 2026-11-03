@@ -561,6 +561,8 @@ document.addEventListener("DOMContentLoaded", () => {
             description.textContent = project.description;
 
             link.href = project.page;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
 
             art.dataset.project = id;
 
