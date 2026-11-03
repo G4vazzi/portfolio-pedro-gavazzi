@@ -394,6 +394,32 @@ document.addEventListener("DOMContentLoaded", () => {
             mockupCaption: "Faça seu pedido online",
 
             image: ""
+        },
+
+        emporiodamusicaai: {
+            number: "03",
+            name: "Empório da Música AI",
+
+            description:
+                "Asistente virtual inteligente para uma loja de " +
+                "instrumentos musicais, desenvolvido em Python, " +
+                "Ollama e SQLite. Utiliza IA para interpertar   " +
+                "perguntas de linguagem natural, consutar produtos " +
+                ", peços e disponibilidade, com interface interativa em " +
+                "Streamlit.",
+
+            technologies: [
+                "Python", "Ollama", "SQLite",
+                "Streamlit", "PyTests"
+            ],
+
+            page: "https://github.com/G4vazzi/emporio-musica-ai",
+
+            mockupDomain: "emporiodamusicaai.dev",
+            mockupTitle: "Empório da Música AI",
+            mockupCaption: "Assistente virtual para loja de instrumentos musicais",
+
+            image: ""
         }
 
     };

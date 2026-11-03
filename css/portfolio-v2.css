@@ -3881,6 +3881,40 @@ h4:has(+ #offcodeHighlights) {
     content: none;
 }
 
+/* =================================================
+   PG REALITY - PREVIEW REAL DO EMPORIO DA MUSICA AI
+================================================= */
+
+.project-art[data-project="emporio"] .project-art__mockup {
+    overflow: hidden;
+    background: #071321;
+}
+
+.project-art[data-project="emporio"] .project-art__window-body {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 1719 / 895;
+    min-height: 0;
+
+    padding: 0;
+
+    background-color: #071321;
+    background-image: url("../img/projetos/emporiodamusicaai-home.png");
+
+    background-size: contain;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.project-art[data-project="emporio"] .project-art__window-body > * {
+    display: none;
+}
+
+.project-art[data-project="emporio"] .project-art__window-body::after {
+    content: none;
+}
+
 /* ========================================
    PG REALITY - LIMPEZA ALÉM DO CÓDIGO
 ======================================== */
